@@ -4,8 +4,9 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="typora-vue-theme主题介绍, Nanchang University NCU Daye CS Blog Computer Science">
-    <meta name="description" content="这是你自定义的文章摘要内容，如果这个属性有值，文章卡片摘要就显示这段文字，否则程序会自动截取文章的部分内容作为摘要">
+    <meta name="keywords" content="本主题文章参数, Nanchang University NCU Daye CS Blog Computer Science">
+    <meta name="description" content="Front-matter 选项详解Front-matter 选项中的所有内容均为非必填的。但我仍然建议至少填写 title 和 date 的值。
+配置选项    默认值    描述title    Markdown 的文件标题    文章标">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -13,7 +14,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>typora-vue-theme主题介绍 | Daye&#39;s Blog</title>
+    <title>本主题文章参数 | Daye&#39;s Blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -317,12 +318,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://s2.ax1x.com/2020/02/10/15RUTx.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://s2.ax1x.com/2020/02/10/152Wz4.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">typora-vue-theme主题介绍</h1>
+                    <h1 class="description center-align post-title">本主题文章参数</h1>
                 </div>
             </div>
         </div>
@@ -343,10 +344,6 @@
                 <div class="col s7">
                     
                     <div class="article-tag">
-                        
-                            <a href="/tags/Typora/">
-                                <span class="chip bg-color">Typora</span>
-                            </a>
                         
                             <a href="/tags/Markdown/">
                                 <span class="chip bg-color">Markdown</span>
@@ -382,14 +379,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    159
+                    594
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    2 分
                 </div>
                 
 				
@@ -405,9 +402,8 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>添加emoji表情支持（可选的）<br>本主题新增了对emoji表情的支持，使用到了 hexo-filter-github-emojis 的 Hexo 插件来支持 emoji表情的生成，把对应的markdown emoji语法（::,例如：<span class="github-emoji" style="color: transparent;background:no-repeat url(https://github.githubassets.com/images/icons/emoji/unicode/1f604.png?v8) center/contain" data-src="https://github.githubassets.com/images/icons/emoji/unicode/1f604.png?v8">😄</span>）转变成会跳跃的emoji表情，安装命令如下：</p>
-<p>npm install hexo-filter-github-emojis –save<br>在 Hexo 根目录下的 _config.yml 文件中，新增以下的配置项：</p>
-<p>githubEmojis:<br>  enable: true<br>  className: github-emoji<br>  inject: true<br>  styles:<br>  customEmojis:</p>
+                <p>Front-matter 选项详解<br>Front-matter 选项中的所有内容均为非必填的。但我仍然建议至少填写 title 和 date 的值。</p>
+<p>配置选项    默认值    描述<br>title    Markdown 的文件标题    文章标题，强烈建议填写此选项<br>date    文件创建时的日期时间    发布时间，强烈建议填写此选项，且最好保证全局唯一<br>author    根 _config.yml 中的 author    文章作者<br>img    featureImages 中的某个值    文章特征图，推荐使用图床(腾讯云、七牛云、又拍云等)来做图片的路径.如: <a href="http://xxx.com/xxx.jpg" target="_blank" rel="noopener">http://xxx.com/xxx.jpg</a><br>top    true    推荐文章（文章是否置顶），如果 top 值为 true，则会作为首页推荐文章<br>cover    false    v1.0.2版本新增，表示该文章是否需要加入到首页轮播封面中<br>coverImg    无    v1.0.2版本新增，表示该文章在首页轮播封面需要显示的图片路径，如果没有，则默认使用文章的特色图片<br>password    无    文章阅读密码，如果要对文章设置阅读验证密码的话，就可以设置 password 的值，该值必须是用 SHA256 加密后的密码，防止被他人识破。前提是在主题的 config.yml 中激活了 verifyPassword 选项<br>toc    true    是否开启 TOC，可以针对某篇文章单独关闭 TOC 的功能。前提是在主题的 config.yml 中激活了 toc 选项<br>mathjax    false    是否开启数学公式支持 ，本文章是否开启 mathjax，且需要在主题的 _config.yml 文件中也需要开启才行<br>summary    无    文章摘要，自定义的文章摘要内容，如果这个属性有值，文章卡片摘要就显示这段文字，否则程序会自动截取文章的部分内容作为摘要<br>categories    无    文章分类，本主题的分类表示宏观上大的分类，只建议一篇文章一个分类<br>tags    无    文章标签，一篇文章可以多个标签<br>keywords    文章标题    文章关键字，SEO 时需要<br>reprintPolicy    cc_by    文章转载规则， 可以是 cc_by, cc_by_nd, cc_by_sa, cc_by_nc, cc_by_nc_nd, cc_by_nc_sa, cc0, noreprint 或 pay 中的一个</p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -441,7 +437,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://jiakangliu.github.io" rel="external nofollow noreferrer">全功能文章模板</a>
+                    <a href="http://jiakangliu.github.io" rel="external nofollow noreferrer">Daye</a>
                 </span>
             </div>
             <div class="reprint__type">
@@ -464,7 +460,7 @@
                     本博客所有文章除特別声明外，均采用
                     <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
                     许可协议。转载请注明来源
-                    <a href="http://jiakangliu.github.io" target="_blank">全功能文章模板</a>
+                    <a href="http://jiakangliu.github.io" target="_blank">Daye</a>
                     !
                 </span>
             </div>
@@ -488,10 +484,6 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            
-                                <a href="/tags/Typora/">
-                                    <span class="chip bg-color">Typora</span>
-                                </a>
                             
                                 <a href="/tags/Markdown/">
                                     <span class="chip bg-color">Markdown</span>
@@ -953,33 +945,48 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/xie-wen-zhang-fa-bu-wen-zhang/">
+                <a href="/huo-qu-wang-yi-yun-yin-le-wai-lian/">
                     <div class="card-image">
                         
                         
-                        <img src="https://s2.ax1x.com/2020/02/10/152RWF.jpg" class="responsive-img" alt="article title">
+                        <img src="https://s2.ax1x.com/2020/02/10/15Rs6H.jpg" class="responsive-img" alt="获取网易云音乐外链">
                         
-                        <span class="card-title">article title</span>
+                        <span class="card-title">获取网易云音乐外链</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            写文章、发布文章https://zhuanlan.zhihu.com/p/35668237首先在博客根目录下右键打开git bash，安装一个扩展npm i hexo-deployer-git。
-然后输入hexo new post “art
+                            一个网易音乐外链地址长期有效，很简单的方法：
+第一步打开网易云音乐，随便找到一首歌，播放，复制网址的ID，
+例如：杨钰莹的心雨，网址是：
+http://music.163.com/#/song?id=317151
+很明显，ID是317151
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-02-08
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-02-10
                         </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            Daye
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" class="post-category">
+                                    博客搭建
+                                </a>
+                            
                             
                         </span>
                     </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/bolg/">
+                        <span class="chip bg-color">bolg</span>
+                    </a>
+                    
                 </div>
                 
             </div>
@@ -995,15 +1002,16 @@
                     <div class="card-image">
                         
                         
-                        <img src="https://s2.ax1x.com/2020/02/10/15RUTx.jpg" class="responsive-img" alt="typora-vue-theme主题介绍">
+                        <img src="https://s2.ax1x.com/2020/02/10/152Wz4.jpg" class="responsive-img" alt="本主题文章参数">
                         
-                        <span class="card-title">typora-vue-theme主题介绍</span>
+                        <span class="card-title">本主题文章参数</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            这是你自定义的文章摘要内容，如果这个属性有值，文章卡片摘要就显示这段文字，否则程序会自动截取文章的部分内容作为摘要
+                            Front-matter 选项详解Front-matter 选项中的所有内容均为非必填的。但我仍然建议至少填写 title 和 date 的值。
+配置选项    默认值    描述title    Markdown 的文件标题    文章标
                         
                     </div>
                     <div class="publish-info">
@@ -1025,10 +1033,6 @@
 
                 
                 <div class="card-action article-tags">
-                    
-                    <a href="/tags/Typora/">
-                        <span class="chip bg-color">Typora</span>
-                    </a>
                     
                     <a href="/tags/Markdown/">
                         <span class="chip bg-color">Markdown</span>
@@ -1140,7 +1144,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">10k</span>&nbsp;字
+                class="white-color">10.4k</span>&nbsp;字
             
             
             
@@ -1330,6 +1334,11 @@ $(function () {
 
     
 
+    
+    <script type="text/javascript" color="0,0,255"
+        pointColor="0,0,255" opacity='0.7'
+        zIndex="-1" count="99"
+        src="/libs/background/canvas-nest.js"></script>
     
 
     
