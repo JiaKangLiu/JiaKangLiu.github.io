@@ -539,10 +539,10 @@ Pull Request要求
 
 <p>规定格式如下：
 
-</p><pre class="line-numbers language-undefined"><code class="language-undefined"><type>(<scope>): <subject> #issue_number
+</p><pre class=" language-undefined"><code class="language-undefined"><type>(<scope>): <subject> #issue_number
 
 <description>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</code></pre>
 
 <p>其中，type、scope、subject是必需的，description 可以省略。不管是哪一个部分，任何一行都不得超过72个字符（或100个字符）。这是为了避免自动换行影响美观。</p>
 <h4>type 部分取值说明</h4>
@@ -582,18 +582,18 @@ Pull Request要求
 
 <h4>1. 克隆远端的develop分支</h4>
 
-<pre class="line-numbers language-language-bash "><code class="language-language-bash ">git clone -b develop <remote-repository-name>
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class=" language-language-bash "><code class="language-language-bash ">git clone -b develop <remote-repository-name>
+</code></pre>
 
 <h4>2. 创建新的分支完成 issue</h4>
 
 <p>开始实现一个feature或者解决一个bug之前，首先切换到develop分支上</p>
-<pre class="line-numbers language-language-bash "><code class="language-language-bash ">git checkout develop
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class=" language-language-bash "><code class="language-language-bash ">git checkout develop
+</code></pre>
 
 <p>创建feature或者bug的分支,并且切换到该分支</p>
-<pre class="line-numbers language-language-bash "><code class="language-language-bash ">git checkout -b <feature/bug-branch-name>
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class=" language-language-bash "><code class="language-language-bash ">git checkout -b <feature/bug-branch-name>
+</code></pre>
 
 <p><strong>分支名称需要遵循命名规范:</strong></p>
 <ul>
@@ -608,12 +608,12 @@ Pull Request要求
 <h4>3. 完成开发的工作</h4>
 
 <p>修改一些文件，添加修改的文件到暂存区(staging area)</p>
-<pre class="line-numbers language-language-bash "><code class="language-language-bash ">git add .
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class=" language-language-bash "><code class="language-language-bash ">git add .
+</code></pre>
 
 <p>将修改后的文件提交到本地的版本库中</p>
-<pre class="line-numbers language-language-bash "><code class="language-language-bash ">git commit -am 'Add a new feature'
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class=" language-language-bash "><code class="language-language-bash ">git commit -am 'Add a new feature'
+</code></pre>
 
 <p>你可以在本地多次提交，可以任意写你每个commit的信息(最好也同时遵守<a href="https://github.com/ajoslin/conventional-changelog/blob/master/conventions/angular.md" target="_blank" rel="noopener">规范</a>)</p>
 <p>注意：</p>
@@ -632,12 +632,12 @@ Pull Request要求
 <h4>4. 独立分支上合并提交</h4>
 
 <p>这里 <strong>特别注意</strong> ，使用rebase命令将你在自己分支上的多次提交合并成一次提交，同时合并develop分支</p>
-<pre class="line-numbers language-language-bash "><code class="language-language-bash ">git checkout <feature／bug-branch-name>
+<pre class=" language-language-bash "><code class="language-language-bash ">git checkout <feature／bug-branch-name>
 git rebase -i develop
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</code></pre>
 
 <p><strong>Notice:</strong> 使用rebase命令将你在feature／bug分支上的多次提交合并成一次， 保证提交的原子性。其中<code>-i</code> 参数会提供交互的方式引导，一般你会看到这样的编辑界面</p>
-<pre class="line-numbers language-language-bash "><code class="language-language-bash ">pick ff76694 feat(sns): add static page for sns module
+<pre class=" language-language-bash "><code class="language-language-bash ">pick ff76694 feat(sns): add static page for sns module
 pick 8e49687 feat(sns): finish the frontend controller for sns module
 pick 69f188e feat(sns): finish the backend controller for sns module
 # Rebase ff76694..69f188e onto d879700
@@ -657,32 +657,32 @@ pick 69f188e feat(sns): finish the backend controller for sns module
 # However, if you remove everything, the rebase will be aborted.
 #
 # Note that empty commits are commented out
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</code></pre>
 
 <p>下面的注释中Command有详细的解释，一般将你要合并的多个提交前面的pick改为squash（如果有多个commit除了第一个是pick其他都是squash），对于我们的示例，修改为</p>
-<pre class="line-numbers language-language-bash "><code class="language-language-bash ">pick ff76694 feat(sns): add static page for sns module
+<pre class=" language-language-bash "><code class="language-language-bash ">pick ff76694 feat(sns): add static page for sns module
 pick 8e49687 feat(sns): finish the frontend controller for sns module
 squash 69f188e feat(sns): finish the backend controller for sns module
 # Rebase ff76694..69f188e onto d879700
 #...
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</code></pre>
 
 <p>保存文件退出编辑，正常情况下这样就完事了，但是如果develop分支上有新的提交和你的工作分支提交发生冲突，就会看到下面的情况</p>
-<pre class="line-numbers language-language-bash "><code class="language-language-bash ">error: could not apply ff76694... feat(sns): finish the backend controller for sns module
+<pre class=" language-language-bash "><code class="language-language-bash ">error: could not apply ff76694... feat(sns): finish the backend controller for sns module
 
 When you have resolved this problem, run "git rebase --continue".
 If you prefer to skip this patch, run "git rebase --skip" instead.
 To check out the original branch and stop rebasing, run "git rebase --abort".
 Could not apply ff76694624019140e05cd9d443aa547e62c5c24b... add line 3
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</code></pre>
 
 <p>编辑冲突文件（冲突文件中可能不会列出你在当前分支上所有的改动，只会标出冲突部分），选择需要的部分，保存文件</p>
-<pre class="line-numbers language-language-bash "><code class="language-language-bash ">git add <modified files>
+<pre class=" language-language-bash "><code class="language-language-bash ">git add <modified files>
 git rebase --continue
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</code></pre>
 
 <p>之后你会看到类似这样的提示</p>
-<pre class="line-numbers language-language-bash "><code class="language-language-bash ">feat(sns): finish the backend controller for sns module
+<pre class=" language-language-bash "><code class="language-language-bash ">feat(sns): finish the backend controller for sns module
 
 # Please enter the commit message for your changes. Lines starting
 # with '#' will be ignored, and an empty message aborts the commit.
@@ -692,10 +692,10 @@ git rebase --continue
 # Changes to be committed:
 #       modified:   test.txt
 #
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</code></pre>
 
 <p>这里是让你编辑你第一次提交的comment，更改comment内容后保存退出，紧接着会提示你编辑合并之后commit的comment，你在上一次添加的comment会合并进来，你看到的会是这样的</p>
-<pre class="line-numbers language-language-bash "><code class="language-language-bash "># This is a combination of 2 commits.
+<pre class=" language-language-bash "><code class="language-language-bash "># This is a combination of 2 commits.
 # The first commit's message is:
 
 # feat(sns): finish the backend controller for sns module
@@ -719,14 +719,14 @@ feat(sns): finish the backend controller for sns module
 # Changes to be committed:
 #       modified:   test.txt
 #
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</code></pre>
 
 <p><strong>去掉多余的comment内容(像示例中一样，只保留一条comment)</strong>，保存退出。将工作分支上的多次提交合并成一次提交，更详细的说明看<a href="http://gitready.com/advanced/2009/02/10/squashing-commits-with-rebase.html" target="_blank" rel="noopener">这里</a></p>
 <h4>５. 提交分支，发PR合并请求到develop分支</h4>
 
 <p>在本地解决合并之后的冲突，同时仅保留feature本身提交的comment(去除在merge中自动生成的提交信息)，解决冲突后将分支提交到中央仓库</p>
-<pre class="line-numbers language-language-bash "><code class="language-language-bash ">git push origin <feature／bug-branch-name>
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class=" language-language-bash "><code class="language-language-bash ">git push origin <feature／bug-branch-name>
+</code></pre>
 
 <p>在github上手动创建一个新的pull request，指定source branch和target branch。</p>
 <script>
