@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>右键添加git bush here</title>
+      <link href="/you-jian-tian-jia-git-bush-here/"/>
+      <url>/you-jian-tian-jia-git-bush-here/</url>
+      
+        <content type="html"><![CDATA[<p>右键添加git bush here</p><p>由于sourcetree自动安装的git，导致右键没有git bush here，那么我们就自己添加一下。</p><p>运行regedit.exe进入注册表，在HKEY_CLASSES_ROOT\Directory\Background\shell中进行设置。<br>1.新建项Git Bush Here，此时你可以看到在桌面右键会出现“Git Bush Here”菜单。<br>2.添加Git Bush Icon，在第一步的新建项Git Bush Here下，新建字符串值Icon，然后编辑该值为“C:\Program Files\Git\mingw64\share\git\git-for-windows.ico”，你需要根据你安装的Git 目录进行配置修改。完成此步后，你会发现右键菜单“Git Bush Here”会多出一个Icon。<br><a href="http://q6g07cm0b.bkt.clouddn.com/%E5%8F%B3%E9%94%AE%E6%B7%BB%E5%8A%A0gitbash1.PNG" target="_blank" rel="noopener">http://q6g07cm0b.bkt.clouddn.com/%E5%8F%B3%E9%94%AE%E6%B7%BB%E5%8A%A0gitbash1.PNG</a><br>3.添加Command项。在“Git Bush Here”下再新建项“Command”，将其默认值改为“C:\Program Files\Git\bin\bash.exe –login -i”，这样，你就可以通过右键菜单的方式快速进入Git命令行工具，进行代码版本管理。<br><a href="http://q6g07cm0b.bkt.clouddn.com/%E5%8F%B3%E9%94%AE%E6%B7%BB%E5%8A%A0gitbash2.PNG" target="_blank" rel="noopener">http://q6g07cm0b.bkt.clouddn.com/%E5%8F%B3%E9%94%AE%E6%B7%BB%E5%8A%A0gitbash2.PNG</a></p><script>        document.querySelectorAll('.github-emoji')          .forEach(el => {            if (!el.dataset.src) { return; }            const img = document.createElement('img');            img.style = 'display:none !important;';            img.src = el.dataset.src;            img.addEventListener('error', () => {              img.remove();              el.style.color = 'inherit';              el.style.backgroundImage = 'none';              el.style.background = 'none';            });            img.addEventListener('load', () => {              img.remove();            });            document.body.appendChild(img);          });      </script>]]></content>
+      
+      
+      <categories>
+          
+          <category> tip </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> tip </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>SpSpringMVC中使用Interceptor拦截器</title>
       <link href="/spspringmvc-zhong-shi-yong-interceptor-lan-jie-qi/"/>
       <url>/spspringmvc-zhong-shi-yong-interceptor-lan-jie-qi/</url>
