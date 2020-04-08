@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>SpSpringMVC中使用Interceptor拦截器</title>
+      <link href="/spspringmvc-zhong-shi-yong-interceptor-lan-jie-qi/"/>
+      <url>/spspringmvc-zhong-shi-yong-interceptor-lan-jie-qi/</url>
+      
+        <content type="html"><![CDATA[<p style="font-weight: 400;">SpringMVC 中的Interceptor 拦截器也是相当重要和相当有用的，它的主要作用是拦截用户的请求并进行相应的处理。比如通过它来进行权限验证，或者是来判断用户是否登陆，或者是像12306 那样子判断当前时间是否是购票时间。</p><h1 style="font-weight: 400;">   一、定义Interceptor实现类</h1><h1 style="font-weight: 400;"></h1><p style="font-weight: 400;">   SpringMVC 中的Interceptor 拦截请求是通过HandlerInterceptor 来实现的。在SpringMVC 中定义一个Interceptor 非常简单，主要有两种方式，第一种方式是要定义的Interceptor类要实现了Spring 的HandlerInterceptor 接口，或者是这个类继承实现了HandlerInterceptor 接口的类，比如Spring 已经提供的实现了HandlerInterceptor 接口的抽象类HandlerInterceptorAdapter ；第二种方式是实现Spring的WebRequestInterceptor接口，或者是继承实现了WebRequestInterceptor的类。</p><h2 style="font-weight: 400;">   （一）实现HandlerInterceptor接口</h2><p style="font-weight: 400;">   HandlerInterceptor 接口中定义了三个方法，我们就是通过这三个方法来对用户的请求进行拦截处理的。</p><p style="font-weight: 400;">   （1 ）preHandle (HttpServletRequest request, HttpServletResponse response, Object handle) 方法，顾名思义，该方法将在请求处理之前进行调用。SpringMVC 中的Interceptor 是链式的调用的，在一个应用中或者说是在一个请求中可以同时存在多个Interceptor 。每个Interceptor 的调用会依据它的声明顺序依次执行，而且最先执行的都是Interceptor 中的preHandle 方法，所以可以在这个方法中进行一些前置初始化操作或者是对当前请求的一个预处理，也可以在这个方法中进行一些判断来决定请求是否要继续进行下去。该方法的返回值是布尔值Boolean 类型的，当它返回为false 时，表示请求结束，后续的Interceptor 和Controller都不会再执行；当返回值为true 时就会继续调用下一个Interceptor 的preHandle 方法，如果已经是最后一个Interceptor 的时候就会是调用当前请求的Controller 方法。</p><p style="font-weight: 400;">   （2 ）postHandle (HttpServletRequest request, HttpServletResponse response, Object handle, ModelAndView modelAndView) 方法，由preHandle 方法的解释我们知道这个方法包括后面要说到的afterCompletion 方法都只能是在当前所属的Interceptor 的preHandle 方法的返回值为true 时才能被调用。postHandle 方法，顾名思义就是在当前请求进行处理之后，也就是Controller 方法调用之后执行，但是它会在DispatcherServlet 进行视图返回渲染之前被调用，所以我们可以在这个方法中对Controller 处理之后的ModelAndView 对象进行操作。postHandle 方法被调用的方向跟preHandle 是相反的，也就是说先声明的Interceptor 的postHandle 方法反而会后执行，这和Struts2 里面的Interceptor 的执行过程有点类型。Struts2 里面的Interceptor 的执行过程也是链式的，只是在Struts2 里面需要手动调用ActionInvocation 的invoke 方法来触发对下一个Interceptor 或者是Action 的调用，然后每一个Interceptor 中在invoke 方法调用之前的内容都是按照声明顺序执行的，而invoke 方法之后的内容就是反向的。</p><p style="font-weight: 400;">   （3 ）afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handle, Exception ex) 方法，该方法也是需要当前对应的Interceptor 的preHandle 方法的返回值为true 时才会执行。顾名思义，该方法将在整个请求结束之后，也就是在DispatcherServlet 渲染了对应的视图之后执行。这个方法的主要作用是用于进行资源清理工作的。</p><p style="font-weight: 400;">下面是一个简单的代码说明：</p><pre class="lang:default decode:true ">import javax.servlet.http.HttpServletRequest;import javax.servlet.http.HttpServletResponse;import org.springframework.web.servlet.HandlerInterceptor;import org.springframework.web.servlet.ModelAndView;public class SpringMVCInterceptor implements HandlerInterceptor {    /**     * preHandle方法是进行处理器拦截用的，顾名思义，该方法将在Controller处理之前进行调用，SpringMVC中的Interceptor拦截器是链式的，可以同时存在     * 多个Interceptor，然后SpringMVC会根据声明的前后顺序一个接一个的执行，而且所有的Interceptor中的preHandle方法都会在     * Controller方法调用之前调用。SpringMVC的这种Interceptor链式结构也是可以进行中断的，这种中断方式是令preHandle的返     * 回值为false，当preHandle的返回值为false的时候整个请求就结束了。     */    @Override    public boolean preHandle(HttpServletRequest request,            HttpServletResponse response, Object handler) throws Exception {        // TODO Auto-generated method stub        return false;    }    /**     * 这个方法只会在当前这个Interceptor的preHandle方法返回值为true的时候才会执行。postHandle是进行处理器拦截用的，它的执行时间是在处理器进行处理之     * 后，也就是在Controller的方法调用之后执行，但是它会在DispatcherServlet进行视图的渲染之前执行，也就是说在这个方法中你可以对ModelAndView进行操     * 作。这个方法的链式结构跟正常访问的方向是相反的，也就是说先声明的Interceptor拦截器该方法反而会后调用，这跟Struts2里面的拦截器的执行过程有点像，     * 只是Struts2里面的intercept方法中要手动的调用ActionInvocation的invoke方法，Struts2中调用ActionInvocation的invoke方法就是调用下一个Interceptor     * 或者是调用action，然后要在Interceptor之前调用的内容都写在调用invoke之前，要在Interceptor之后调用的内容都写在调用invoke方法之后。     */    @Override    public void postHandle(HttpServletRequest request,            HttpServletResponse response, Object handler,            ModelAndView modelAndView) throws Exception {        // TODO Auto-generated method stub    }    /**     * 该方法也是需要当前对应的Interceptor的preHandle方法的返回值为true时才会执行。该方法将在整个请求完成之后，也就是DispatcherServlet渲染了视图执行，     * 这个方法的主要作用是用于清理资源的，当然这个方法也只能在当前这个Interceptor的preHandle方法的返回值为true时才会执行。     */    @Override    public void afterCompletion(HttpServletRequest request,            HttpServletResponse response, Object handler, Exception ex)    throws Exception {        // TODO Auto-generated method stub    }}</pre><h2 style="font-weight: 400;">（二）实现WebRequestInterceptor 接口</h2><p style="font-weight: 400;">  WebRequestInterceptor 中也定义了三个方法，我们也是通过这三个方法来实现拦截的。这三个方法都传递了同一个参数WebRequest ，那么这个WebRequest 是什么呢？这个WebRequest 是Spring 定义的一个接口，它里面的方法定义都基本跟HttpServletRequest 一样，在WebRequestInterceptor 中对WebRequest进行的所有操作都将同步到HttpServletRequest 中，然后在当前请求中一直传递。</p><p style="font-weight: 400;">   （1 ）preHandle(WebRequest request) 方法。该方法将在请求处理之前进行调用，也就是说会在Controller 方法调用之前被调用。这个方法跟HandlerInterceptor 中的preHandle 是不同的，主要区别在于该方法的返回值是void ，也就是没有返回值，所以我们一般主要用它来进行资源的准备工作，比如我们在使用Hibernate 的时候可以在这个方法中准备一个Hibernate 的Session 对象，然后利用WebRequest 的setAttribute(name, value, scope) 把它放到WebRequest 的属性中。这里可以说说这个setAttribute 方法的第三个参数scope ，该参数是一个Integer 类型的。在WebRequest 的父层接口RequestAttributes 中对它定义了三个常量：</p><p style="font-weight: 400;">   SCOPE_REQUEST ：它的值是0 ，代表只有在request 中可以访问。</p><p style="font-weight: 400;">   SCOPE_SESSION ：它的值是1 ，如果环境允许的话它代表的是一个局部的隔离的session，否则就代表普通的session，并且在该session范围内可以访问。</p><p style="font-weight: 400;">   SCOPE_GLOBAL_SESSION ：它的值是2 ，如果环境允许的话，它代表的是一个全局共享的session，否则就代表普通的session，并且在该session 范围内可以访问。</p><p style="font-weight: 400;">   （2 ）postHandle(WebRequest request, ModelMap model) 方法。该方法将在请求处理之后，也就是在Controller 方法调用之后被调用，但是会在视图返回被渲染之前被调用，所以可以在这个方法里面通过改变数据模型ModelMap 来改变数据的展示。该方法有两个参数，WebRequest 对象是用于传递整个请求数据的，比如在preHandle 中准备的数据都可以通过WebRequest 来传递和访问；ModelMap 就是Controller 处理之后返回的Model 对象，我们可以通过改变它的属性来改变返回的Model 模型。</p><p style="font-weight: 400;">   （3 ）afterCompletion(WebRequest request, Exception ex) 方法。该方法会在整个请求处理完成，也就是在视图返回并被渲染之后执行。所以在该方法中可以进行资源的释放操作。而WebRequest 参数就可以把我们在preHandle 中准备的资源传递到这里进行释放。Exception 参数表示的是当前请求的异常对象，如果在Controller 中抛出的异常已经被Spring 的异常处理器给处理了的话，那么这个异常对象就是是null 。</p><p style="font-weight: 400;"></p><p style="font-weight: 400;">   下面是一个简单的代码说明：</p><pre class="lang:default decode:true">import org.springframework.ui.ModelMap;import org.springframework.web.context.request.WebRequest;import org.springframework.web.context.request.WebRequestInterceptor;public class AllInterceptor implements WebRequestInterceptor {    /**     * 在请求处理之前执行，该方法主要是用于准备资源数据的，然后可以把它们当做请求属性放到WebRequest中     */    @Override    public void preHandle(WebRequest request) throws Exception {        // TODO Auto-generated method stub        System.out.println("AllInterceptor...............................");        request.setAttribute("request", "request", WebRequest.SCOPE_REQUEST);//这个是放到request范围内的，所以只能在当前请求中的request中获取到        request.setAttribute("session", "session", WebRequest.SCOPE_SESSION);//这个是放到session范围内的，如果环境允许的话它只能在局部的隔离的会话中访问，否则就是在普通的当前会话中可以访问        request.setAttribute("globalSession", "globalSession", WebRequest.SCOPE_GLOBAL_SESSION);//如果环境允许的话，它能在全局共享的会话中访问，否则就是在普通的当前会话中访问    }    /**     * 该方法将在Controller执行之后，返回视图之前执行，ModelMap表示请求Controller处理之后返回的Model对象，所以可以在     * 这个方法中修改ModelMap的属性，从而达到改变返回的模型的效果。     */    @Override    public void postHandle(WebRequest request, ModelMap map) throws Exception {        // TODO Auto-generated method stub        for (String key:map.keySet())            System.out.println(key + "-------------------------");;        map.put("name3", "value3");        map.put("name1", "name1");    }    /**     * 该方法将在整个请求完成之后，也就是说在视图渲染之后进行调用，主要用于进行一些资源的释放     */    @Override    public void afterCompletion(WebRequest request, Exception exception)    throws Exception {        // TODO Auto-generated method stub        System.out.println(exception + "-=-=--=--=-=-=-=-=-=-=-=-==-=--=-=-=-=");    }}</pre><h2>（二）使用mvc:interceptors标签来声明需要加入到SpringMVC拦截器链中的拦截器</h2>Spring4.1.0是有exclude-mapping定义的。所以基于该版本有Spring MVC拦截器的exclude-mapping的用法。mapping只能映射某些需要拦截的请求，而exclude-mapping用来排除某些特定的请求映射。当我们需要拦截的请求映射是比较通用的，但是其中又包含了某个特殊的请求是不需要使用该拦截器的时候我们就可以把它定义为exclude-mapping了。比如像下面示例这样，我们定义的拦截器将拦截所有匹配/interceptor/**模式的请求，但是不能拦截请求“/interceptor/b”，因为它定义为了exclude-mapping。当定义了exclude-mapping时，Spring MVC将优先判断一个请求是否在execlude-mapping定义的范围内，如果在则不进行拦截。<pre class="lang:default decode:true ">&lt;mvc:interceptors&gt;      &lt;mvc:interceptor&gt;          &lt;mvc:mapping path="/interceptor/**" /&gt;          &lt;mvc:exclude-mapping path="/interceptor/b/*" /&gt;&lt;!--              不匹配的 --&gt;          &lt;bean class="com.elim.learn.spring.mvc.interceptor.MyInterceptor" /&gt;      &lt;/mvc:interceptor&gt;  &lt;/mvc:interceptors&gt;</pre>另外，exclude-mapping的定义规则和mapping的定义规则是一样的，我们也可以使用一个星号表示任意字符，使用两个星号表示任意层次的任意字符。<script>        document.querySelectorAll('.github-emoji')          .forEach(el => {            if (!el.dataset.src) { return; }            const img = document.createElement('img');            img.style = 'display:none !important;';            img.src = el.dataset.src;            img.addEventListener('error', () => {              img.remove();              el.style.color = 'inherit';              el.style.backgroundImage = 'none';              el.style.background = 'none';            });            img.addEventListener('load', () => {              img.remove();            });            document.body.appendChild(img);          });      </script>]]></content>
+      
+      
+      <categories>
+          
+          <category> java </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> java </tag>
+            
+            <tag> spring </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>右键添加git bush here</title>
       <link href="/you-jian-tian-jia-git-bush-here/"/>
       <url>/you-jian-tian-jia-git-bush-here/</url>
@@ -29,25 +56,160 @@
     
     
     <entry>
-      <title>SpSpringMVC中使用Interceptor拦截器</title>
-      <link href="/spspringmvc-zhong-shi-yong-interceptor-lan-jie-qi/"/>
-      <url>/spspringmvc-zhong-shi-yong-interceptor-lan-jie-qi/</url>
+      <title>获取网易云音乐外链</title>
+      <link href="/huo-qu-wang-yi-yun-yin-le-wai-lian/"/>
+      <url>/huo-qu-wang-yi-yun-yin-le-wai-lian/</url>
       
-        <content type="html"><![CDATA[<p style="font-weight: 400;">SpringMVC 中的Interceptor 拦截器也是相当重要和相当有用的，它的主要作用是拦截用户的请求并进行相应的处理。比如通过它来进行权限验证，或者是来判断用户是否登陆，或者是像12306 那样子判断当前时间是否是购票时间。</p><h1 style="font-weight: 400;">   一、定义Interceptor实现类</h1><h1 style="font-weight: 400;"></h1><p style="font-weight: 400;">   SpringMVC 中的Interceptor 拦截请求是通过HandlerInterceptor 来实现的。在SpringMVC 中定义一个Interceptor 非常简单，主要有两种方式，第一种方式是要定义的Interceptor类要实现了Spring 的HandlerInterceptor 接口，或者是这个类继承实现了HandlerInterceptor 接口的类，比如Spring 已经提供的实现了HandlerInterceptor 接口的抽象类HandlerInterceptorAdapter ；第二种方式是实现Spring的WebRequestInterceptor接口，或者是继承实现了WebRequestInterceptor的类。</p><h2 style="font-weight: 400;">   （一）实现HandlerInterceptor接口</h2><p style="font-weight: 400;">   HandlerInterceptor 接口中定义了三个方法，我们就是通过这三个方法来对用户的请求进行拦截处理的。</p><p style="font-weight: 400;">   （1 ）preHandle (HttpServletRequest request, HttpServletResponse response, Object handle) 方法，顾名思义，该方法将在请求处理之前进行调用。SpringMVC 中的Interceptor 是链式的调用的，在一个应用中或者说是在一个请求中可以同时存在多个Interceptor 。每个Interceptor 的调用会依据它的声明顺序依次执行，而且最先执行的都是Interceptor 中的preHandle 方法，所以可以在这个方法中进行一些前置初始化操作或者是对当前请求的一个预处理，也可以在这个方法中进行一些判断来决定请求是否要继续进行下去。该方法的返回值是布尔值Boolean 类型的，当它返回为false 时，表示请求结束，后续的Interceptor 和Controller都不会再执行；当返回值为true 时就会继续调用下一个Interceptor 的preHandle 方法，如果已经是最后一个Interceptor 的时候就会是调用当前请求的Controller 方法。</p><p style="font-weight: 400;">   （2 ）postHandle (HttpServletRequest request, HttpServletResponse response, Object handle, ModelAndView modelAndView) 方法，由preHandle 方法的解释我们知道这个方法包括后面要说到的afterCompletion 方法都只能是在当前所属的Interceptor 的preHandle 方法的返回值为true 时才能被调用。postHandle 方法，顾名思义就是在当前请求进行处理之后，也就是Controller 方法调用之后执行，但是它会在DispatcherServlet 进行视图返回渲染之前被调用，所以我们可以在这个方法中对Controller 处理之后的ModelAndView 对象进行操作。postHandle 方法被调用的方向跟preHandle 是相反的，也就是说先声明的Interceptor 的postHandle 方法反而会后执行，这和Struts2 里面的Interceptor 的执行过程有点类型。Struts2 里面的Interceptor 的执行过程也是链式的，只是在Struts2 里面需要手动调用ActionInvocation 的invoke 方法来触发对下一个Interceptor 或者是Action 的调用，然后每一个Interceptor 中在invoke 方法调用之前的内容都是按照声明顺序执行的，而invoke 方法之后的内容就是反向的。</p><p style="font-weight: 400;">   （3 ）afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handle, Exception ex) 方法，该方法也是需要当前对应的Interceptor 的preHandle 方法的返回值为true 时才会执行。顾名思义，该方法将在整个请求结束之后，也就是在DispatcherServlet 渲染了对应的视图之后执行。这个方法的主要作用是用于进行资源清理工作的。</p><p style="font-weight: 400;">下面是一个简单的代码说明：</p><pre class="lang:default decode:true ">import javax.servlet.http.HttpServletRequest;import javax.servlet.http.HttpServletResponse;import org.springframework.web.servlet.HandlerInterceptor;import org.springframework.web.servlet.ModelAndView;public class SpringMVCInterceptor implements HandlerInterceptor {    /**     * preHandle方法是进行处理器拦截用的，顾名思义，该方法将在Controller处理之前进行调用，SpringMVC中的Interceptor拦截器是链式的，可以同时存在     * 多个Interceptor，然后SpringMVC会根据声明的前后顺序一个接一个的执行，而且所有的Interceptor中的preHandle方法都会在     * Controller方法调用之前调用。SpringMVC的这种Interceptor链式结构也是可以进行中断的，这种中断方式是令preHandle的返     * 回值为false，当preHandle的返回值为false的时候整个请求就结束了。     */    @Override    public boolean preHandle(HttpServletRequest request,            HttpServletResponse response, Object handler) throws Exception {        // TODO Auto-generated method stub        return false;    }    /**     * 这个方法只会在当前这个Interceptor的preHandle方法返回值为true的时候才会执行。postHandle是进行处理器拦截用的，它的执行时间是在处理器进行处理之     * 后，也就是在Controller的方法调用之后执行，但是它会在DispatcherServlet进行视图的渲染之前执行，也就是说在这个方法中你可以对ModelAndView进行操     * 作。这个方法的链式结构跟正常访问的方向是相反的，也就是说先声明的Interceptor拦截器该方法反而会后调用，这跟Struts2里面的拦截器的执行过程有点像，     * 只是Struts2里面的intercept方法中要手动的调用ActionInvocation的invoke方法，Struts2中调用ActionInvocation的invoke方法就是调用下一个Interceptor     * 或者是调用action，然后要在Interceptor之前调用的内容都写在调用invoke之前，要在Interceptor之后调用的内容都写在调用invoke方法之后。     */    @Override    public void postHandle(HttpServletRequest request,            HttpServletResponse response, Object handler,            ModelAndView modelAndView) throws Exception {        // TODO Auto-generated method stub    }    /**     * 该方法也是需要当前对应的Interceptor的preHandle方法的返回值为true时才会执行。该方法将在整个请求完成之后，也就是DispatcherServlet渲染了视图执行，     * 这个方法的主要作用是用于清理资源的，当然这个方法也只能在当前这个Interceptor的preHandle方法的返回值为true时才会执行。     */    @Override    public void afterCompletion(HttpServletRequest request,            HttpServletResponse response, Object handler, Exception ex)    throws Exception {        // TODO Auto-generated method stub    }}</pre><h2 style="font-weight: 400;">（二）实现WebRequestInterceptor 接口</h2><p style="font-weight: 400;">  WebRequestInterceptor 中也定义了三个方法，我们也是通过这三个方法来实现拦截的。这三个方法都传递了同一个参数WebRequest ，那么这个WebRequest 是什么呢？这个WebRequest 是Spring 定义的一个接口，它里面的方法定义都基本跟HttpServletRequest 一样，在WebRequestInterceptor 中对WebRequest进行的所有操作都将同步到HttpServletRequest 中，然后在当前请求中一直传递。</p><p style="font-weight: 400;">   （1 ）preHandle(WebRequest request) 方法。该方法将在请求处理之前进行调用，也就是说会在Controller 方法调用之前被调用。这个方法跟HandlerInterceptor 中的preHandle 是不同的，主要区别在于该方法的返回值是void ，也就是没有返回值，所以我们一般主要用它来进行资源的准备工作，比如我们在使用Hibernate 的时候可以在这个方法中准备一个Hibernate 的Session 对象，然后利用WebRequest 的setAttribute(name, value, scope) 把它放到WebRequest 的属性中。这里可以说说这个setAttribute 方法的第三个参数scope ，该参数是一个Integer 类型的。在WebRequest 的父层接口RequestAttributes 中对它定义了三个常量：</p><p style="font-weight: 400;">   SCOPE_REQUEST ：它的值是0 ，代表只有在request 中可以访问。</p><p style="font-weight: 400;">   SCOPE_SESSION ：它的值是1 ，如果环境允许的话它代表的是一个局部的隔离的session，否则就代表普通的session，并且在该session范围内可以访问。</p><p style="font-weight: 400;">   SCOPE_GLOBAL_SESSION ：它的值是2 ，如果环境允许的话，它代表的是一个全局共享的session，否则就代表普通的session，并且在该session 范围内可以访问。</p><p style="font-weight: 400;">   （2 ）postHandle(WebRequest request, ModelMap model) 方法。该方法将在请求处理之后，也就是在Controller 方法调用之后被调用，但是会在视图返回被渲染之前被调用，所以可以在这个方法里面通过改变数据模型ModelMap 来改变数据的展示。该方法有两个参数，WebRequest 对象是用于传递整个请求数据的，比如在preHandle 中准备的数据都可以通过WebRequest 来传递和访问；ModelMap 就是Controller 处理之后返回的Model 对象，我们可以通过改变它的属性来改变返回的Model 模型。</p><p style="font-weight: 400;">   （3 ）afterCompletion(WebRequest request, Exception ex) 方法。该方法会在整个请求处理完成，也就是在视图返回并被渲染之后执行。所以在该方法中可以进行资源的释放操作。而WebRequest 参数就可以把我们在preHandle 中准备的资源传递到这里进行释放。Exception 参数表示的是当前请求的异常对象，如果在Controller 中抛出的异常已经被Spring 的异常处理器给处理了的话，那么这个异常对象就是是null 。</p><p style="font-weight: 400;"></p><p style="font-weight: 400;">   下面是一个简单的代码说明：</p><pre class="lang:default decode:true">import org.springframework.ui.ModelMap;import org.springframework.web.context.request.WebRequest;import org.springframework.web.context.request.WebRequestInterceptor;public class AllInterceptor implements WebRequestInterceptor {    /**     * 在请求处理之前执行，该方法主要是用于准备资源数据的，然后可以把它们当做请求属性放到WebRequest中     */    @Override    public void preHandle(WebRequest request) throws Exception {        // TODO Auto-generated method stub        System.out.println("AllInterceptor...............................");        request.setAttribute("request", "request", WebRequest.SCOPE_REQUEST);//这个是放到request范围内的，所以只能在当前请求中的request中获取到        request.setAttribute("session", "session", WebRequest.SCOPE_SESSION);//这个是放到session范围内的，如果环境允许的话它只能在局部的隔离的会话中访问，否则就是在普通的当前会话中可以访问        request.setAttribute("globalSession", "globalSession", WebRequest.SCOPE_GLOBAL_SESSION);//如果环境允许的话，它能在全局共享的会话中访问，否则就是在普通的当前会话中访问    }    /**     * 该方法将在Controller执行之后，返回视图之前执行，ModelMap表示请求Controller处理之后返回的Model对象，所以可以在     * 这个方法中修改ModelMap的属性，从而达到改变返回的模型的效果。     */    @Override    public void postHandle(WebRequest request, ModelMap map) throws Exception {        // TODO Auto-generated method stub        for (String key:map.keySet())            System.out.println(key + "-------------------------");;        map.put("name3", "value3");        map.put("name1", "name1");    }    /**     * 该方法将在整个请求完成之后，也就是说在视图渲染之后进行调用，主要用于进行一些资源的释放     */    @Override    public void afterCompletion(WebRequest request, Exception exception)    throws Exception {        // TODO Auto-generated method stub        System.out.println(exception + "-=-=--=--=-=-=-=-=-=-=-=-==-=--=-=-=-=");    }}</pre><h2>（二）使用mvc:interceptors标签来声明需要加入到SpringMVC拦截器链中的拦截器</h2>Spring4.1.0是有exclude-mapping定义的。所以基于该版本有Spring MVC拦截器的exclude-mapping的用法。mapping只能映射某些需要拦截的请求，而exclude-mapping用来排除某些特定的请求映射。当我们需要拦截的请求映射是比较通用的，但是其中又包含了某个特殊的请求是不需要使用该拦截器的时候我们就可以把它定义为exclude-mapping了。比如像下面示例这样，我们定义的拦截器将拦截所有匹配/interceptor/**模式的请求，但是不能拦截请求“/interceptor/b”，因为它定义为了exclude-mapping。当定义了exclude-mapping时，Spring MVC将优先判断一个请求是否在execlude-mapping定义的范围内，如果在则不进行拦截。<pre class="lang:default decode:true ">&lt;mvc:interceptors&gt;      &lt;mvc:interceptor&gt;          &lt;mvc:mapping path="/interceptor/**" /&gt;          &lt;mvc:exclude-mapping path="/interceptor/b/*" /&gt;&lt;!--              不匹配的 --&gt;          &lt;bean class="com.elim.learn.spring.mvc.interceptor.MyInterceptor" /&gt;      &lt;/mvc:interceptor&gt;  &lt;/mvc:interceptors&gt;</pre>另外，exclude-mapping的定义规则和mapping的定义规则是一样的，我们也可以使用一个星号表示任意字符，使用两个星号表示任意层次的任意字符。<script>        document.querySelectorAll('.github-emoji')          .forEach(el => {            if (!el.dataset.src) { return; }            const img = document.createElement('img');            img.style = 'display:none !important;';            img.src = el.dataset.src;            img.addEventListener('error', () => {              img.remove();              el.style.color = 'inherit';              el.style.backgroundImage = 'none';              el.style.background = 'none';            });            img.addEventListener('load', () => {              img.remove();            });            document.body.appendChild(img);          });      </script>]]></content>
+        <content type="html"><![CDATA[<p>一个网易音乐外链地址长期有效，很简单的方法：</p><p>第一步打开网易云音乐，随便找到一首歌，播放，复制网址的ID，</p><p>例如：杨钰莹的心雨，网址是：</p><p><a href="http://music.163.com/#/song?id=317151" target="_blank" rel="noopener">http://music.163.com/#/song?id=317151</a></p><p>很明显，ID是317151</p><p>那么，这首歌的真实地址就是：</p><p><a href="http://music.163.com/song/media/outer/url?id=317151.mp3" target="_blank" rel="noopener">http://music.163.com/song/media/outer/url?id=317151.mp3</a></p><p>这个地址不会失效的；</p><p>这就得到一个下载公式：</p><p><a href="http://music.163.com/song/media/outer/url?id=ID数字.mp3" target="_blank" rel="noopener">http://music.163.com/song/media/outer/url?id=ID数字.mp3</a></p><p>把上面红色部分ID数字换成网易云播放页面的id即可。</p><script>        document.querySelectorAll('.github-emoji')          .forEach(el => {            if (!el.dataset.src) { return; }            const img = document.createElement('img');            img.style = 'display:none !important;';            img.src = el.dataset.src;            img.addEventListener('error', () => {              img.remove();              el.style.color = 'inherit';              el.style.backgroundImage = 'none';              el.style.background = 'none';            });            img.addEventListener('load', () => {              img.remove();            });            document.body.appendChild(img);          });      </script>]]></content>
       
       
       <categories>
           
-          <category> java </category>
+          <category> 博客搭建 </category>
           
       </categories>
       
       
         <tags>
             
-            <tag> java </tag>
+            <tag> bolg </tag>
             
-            <tag> spring </tag>
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>docker pull 下载镜像太慢解决办法</title>
+      <link href="/docker-pull-xia-zai-jing-xiang-tai-man-jie-jue-ban-fa/"/>
+      <url>/docker-pull-xia-zai-jing-xiang-tai-man-jie-jue-ban-fa/</url>
+      
+        <content type="html"><![CDATA[<p>网上很多解决办法<br>我这里推荐一个我感觉有用而且最简单的方法<br><a href="https://www.daocloud.io/mirror#accelerator-doc" target="_blank" rel="noopener">https://www.daocloud.io/mirror#accelerator-doc</a><br>按照daocloud里的不同系统的配置方法去配置，Windows，Mac，Linux都有，输入命令回车就行了。<br><img src="https://s2.ax1x.com/2020/02/10/150Pv6.png"></p><script>        document.querySelectorAll('.github-emoji')          .forEach(el => {            if (!el.dataset.src) { return; }            const img = document.createElement('img');            img.style = 'display:none !important;';            img.src = el.dataset.src;            img.addEventListener('error', () => {              img.remove();              el.style.color = 'inherit';              el.style.backgroundImage = 'none';              el.style.background = 'none';            });            img.addEventListener('load', () => {              img.remove();            });            document.body.appendChild(img);          });      </script>]]></content>
+      
+      
+      <categories>
+          
+          <category> docker </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> docker </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>一键配置脚本，附加Ubuntu客户端(修改自@秋水逸冰)</title>
+      <link href="/yi-jian-pei-zhi-jiao-ben-fu-jia-ubuntu-ke-hu-duan/"/>
+      <url>/yi-jian-pei-zhi-jiao-ben-fu-jia-ubuntu-ke-hu-duan/</url>
+      
+        <content type="html"><![CDATA[<h3>本脚本适用环境</h3>系统支持：CentOS 6+，Debian 7+，Ubuntu 12+内存要求：≥128M<h3>关于本脚本</h3>1、一键安装 Shadowsocks-Python， ShadowsocksR， Shadowsocks-Go， Shadowsocks-libev 版（四选一）服务端；2、各版本的启动脚本及配置文件名不再重合；3、每次运行可安装一种版本；4、支持以多次运行来安装多个版本，且各个版本可以共存（注意端口号需设成不同）；5、若已安装多个版本，则卸载时也需多次运行（每次卸载一种）；<h3>默认配置</h3>服务器端口：自己设定（如不设定，默认从 9000-19999 之间随机生成）密码：自己设定（如不设定，默认为 <a href="http://teddysun.com/" target="_blank" rel="nofollow noopener">teddysun.com</a>）加密方式：自己设定（如不设定，Python 和 libev 版默认为 aes-256-gcm，R 和 Go 版默认为 aes-256-cfb）协议（protocol）：自己设定（如不设定，默认为 origin）（仅限 ShadowsocksR 版）混淆（obfs）：自己设定（如不设定，默认为 plain）（仅限 ShadowsocksR 版）备注：脚本默认创建单用户配置文件，如需配置多用户，请手动修改相应的配置文件后重启即可。<a name="t3"></a><a id="_26" target="_blank"></a><h3>客户端下载</h3>常规版 Windows 客户端<p><a href="https://github.com/shadowsocks/shadowsocks-windows/releases" target="_blank" rel="noopener">https://github.com/shadowsocks/shadowsocks-windows/releases</a></p><p>ShadowsocksR 版 Windows 客户端<br><a href="https://github.com/shadowsocksrr/shadowsocksr-csharp/releases" target="_blank" rel="noopener">https://github.com/shadowsocksrr/shadowsocksr-csharp/releases</a></p><p>附加：</p><p>Ubuntu客户端：</p><p>找了好多方法配置Ubuntu客户端，感觉都挺麻烦的，最终找到一个超级方便的，直接给下载地址：<a href="https://github.com/erguotou520/electron-ssr/releases" target="_blank" rel="noopener">https://github.com/erguotou520/electron-ssr/releases</a></p><p>安装完之后要设置端口：找到网络&gt;网络代理&gt;设置手动&gt;Sock主机为127.0.0.1:1080</p><h3>使用方法</h3>使用root用户登录，依次运行以下命令：<pre class="lang:default decode:true ">wget --no-check-certificate -O shadowsocks-all.sh https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocks-all.shchmod +x shadowsocks-all.sh./shadowsocks-all.sh 2&gt;&amp;1 | tee shadowsocks-all.log</pre>安装完成后，脚本提示如下<pre class="lang:default decode:true ">Congratulations, your_shadowsocks_version install completed!Your Server IP        :your_server_ipYour Server Port      :your_server_portYour Password         :your_passwordYour Encryption Method:your_encryption_method<p>Your QR Code: (For Shadowsocks Windows, OSX, Android and iOS clients)<br> ss://your_encryption_method:your_password@your_server_ip:your_server_port<br>Your QR Code has been saved as a PNG file path:<br> your_path.png</p><p>Welcome to visit:<a href="https://teddysun.com/486.html" target="_blank" rel="noopener">https://teddysun.com/486.html</a><br>Enjoy it!</p></pre><p></p><h3>卸载方法</h3>若已安装多个版本，则卸载时也需多次运行（每次卸载一种）使用root用户登录，运行以下命令：<pre class="lang:default decode:true ">./shadowsocks-all.sh uninstall</pre><h3>启动脚本</h3>启动脚本后面的参数含义，从左至右依次为：启动，停止，重启，查看状态。<p>Shadowsocks-Python 版：<br>/etc/init.d/shadowsocks-python start | stop | restart | status</p><p>ShadowsocksR 版：<br>/etc/init.d/shadowsocks-r start | stop | restart | status</p><p>Shadowsocks-Go 版：<br>/etc/init.d/shadowsocks-go start | stop | restart | status</p><p>Shadowsocks-libev 版：<br>/etc/init.d/shadowsocks-libev start | stop | restart | status</p><h3>各版本默认配置文件</h3>Shadowsocks-Python 版：/etc/shadowsocks-python/config.json<p>ShadowsocksR 版：<br>/etc/shadowsocks-r/config.json</p><p>Shadowsocks-Go 版：<br>/etc/shadowsocks-go/config.json</p><p>Shadowsocks-libev 版：<br>/etc/shadowsocks-libev/config.json</p><p>&nbsp;</p><p>配置好服务器后 Shadowsocks 客户端示例：</p><img class="alignnone size-medium wp-image-125" src="http://111.231.218.156/wp-content/uploads/2018/12/33_I99@V9C63ATHM3ZX0-300x159.png" alt="" width="300" height="159"><p>附加：使用本地PAC即只有访问墙外的网站才通过代理访问，不需要代理的就直接访问了。这样可能导致的问题是有些需要代理的网站会被误认为是不需要代理的，导致无法访问，这时可以尝试关闭’使用本地PAC’，例如P站就需要这样操作。</p><hr><h3>更新</h3>2018 年 02 月 06 日：修改：ShadowsocksR 版为 <a href="https://github.com/shadowsocksrr/shadowsocksr" target="_blank" rel="noopener">ShadowsocksRR</a> 最新版；<p>&nbsp;</p><p>原文地址请访问秋水逸冰: <a href="https://teddysun.com" target="_blank" rel="noopener">https://teddysun.com</a></p><script>        document.querySelectorAll('.github-emoji')          .forEach(el => {            if (!el.dataset.src) { return; }            const img = document.createElement('img');            img.style = 'display:none !important;';            img.src = el.dataset.src;            img.addEventListener('error', () => {              img.remove();              el.style.color = 'inherit';              el.style.backgroundImage = 'none';              el.style.background = 'none';            });            img.addEventListener('load', () => {              img.remove();            });            document.body.appendChild(img);          });      </script>]]></content>
+      
+      
+      <categories>
+          
+          <category> 科学爱国 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 科学爱国 </tag>
+            
+            <tag> 配置VPS </tag>
+            
+            <tag> SSR </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>WordPress域名地址填写错误解决方法</title>
+      <link href="/wordpress-yu-ming-di-zhi-tian-xie-cuo-wu-jie-jue-fang-fa/"/>
+      <url>/wordpress-yu-ming-di-zhi-tian-xie-cuo-wu-jie-jue-fang-fa/</url>
+      
+        <content type="html"><![CDATA[<p>    因为想设置域名，没想到域名现在要备案了，一时间也不想这么麻烦的去备案，可是这时网站无法访问了，或者是加载不出css，导致没法进入设置的界面。因为我们所有在可视化页面上配置的东西，都最终转化成了后台对数据库的操作。so，我们要对网站的数据库进行入手。首先进入服务器数据库MySQL。<br>    选用WordPress所在的数据库，输入：</p><p><code>select * from wp_options where option_name like ‘%siteurl%’ or option_name like ‘%home%’</code></p><p>    这时就能看到你之前设置的错误的域名地址了，用修改的sql语句把地址改回原来的ip就行了。</p><script>        document.querySelectorAll('.github-emoji')          .forEach(el => {            if (!el.dataset.src) { return; }            const img = document.createElement('img');            img.style = 'display:none !important;';            img.src = el.dataset.src;            img.addEventListener('error', () => {              img.remove();              el.style.color = 'inherit';              el.style.backgroundImage = 'none';              el.style.background = 'none';            });            img.addEventListener('load', () => {              img.remove();            });            document.body.appendChild(img);          });      </script>]]></content>
+      
+      
+      <categories>
+          
+          <category> 博客搭建 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> bolg </tag>
+            
+            <tag> WordPress </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Ubuntu服务器一键配置SS+开启BBR加速</title>
+      <link href="/ubuntu-fu-wu-qi-yi-jian-pei-zhi-ss-kai-qi-bbr-jia-su/"/>
+      <url>/ubuntu-fu-wu-qi-yi-jian-pei-zhi-ss-kai-qi-bbr-jia-su/</url>
+      
+        <content type="html"><![CDATA[<p>设置root密码：</p><pre class="lang:default decode:true ">sudo password root</pre><p>&nbsp;</p><p>下载shadowsocks客户端：<br><a href="https://github.com/shadowsocks/shadowsocks-windows/releases" target="_blank" rel="noopener">https://github.com/shadowsocks/shadowsocks-windows/releases</a></p><p>服务器安装：<br>（root下执行）</p><pre class="lang:default decode:true ">wget --no-check-certificate -O shadowsocks-all.sh https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocks-all.shchmod +x shadowsocks-all.sh./shadowsocks-all.sh 2&gt;&amp;1 | tee shadowsocks-all.log</pre><p>&nbsp;</p><p>启动停止重启命令：</p><pre class="lang:default decode:true">/etc/init.d/shadowsocks start | stop | restart | status</pre><p>&nbsp;</p><p>默认配置文件位置：</p><pre class="lang:default decode:true  ">/etc/shadowsocks/config.json</pre><p>&nbsp;</p><p>开启bbr加速：<br>（root下运行）</p><pre class="lang:default decode:true ">wget –no-check-certificate https://github.com/teddysun/across/raw/master/bbr.sh &amp;&amp; chmod +x bbr.sh &amp;&amp; ./bbr.sh</pre><p>&nbsp;</p><p>查看是否最新版本：</p><pre class="lang:default decode:true ">uname -rlsmod | grep bbr</pre><p>&nbsp;</p><script>        document.querySelectorAll('.github-emoji')          .forEach(el => {            if (!el.dataset.src) { return; }            const img = document.createElement('img');            img.style = 'display:none !important;';            img.src = el.dataset.src;            img.addEventListener('error', () => {              img.remove();              el.style.color = 'inherit';              el.style.backgroundImage = 'none';              el.style.background = 'none';            });            img.addEventListener('load', () => {              img.remove();            });            document.body.appendChild(img);          });      </script>]]></content>
+      
+      
+      <categories>
+          
+          <category> 科学爱国 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 科学爱国 </tag>
+            
+            <tag> SS </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>SS/SSR客户端的配置及免费节点的分享</title>
+      <link href="/ss-ssr-ke-hu-duan-de-pei-zhi-ji-mian-fei-jie-dian-de-fen-xiang/"/>
+      <url>/ss-ssr-ke-hu-duan-de-pei-zhi-ji-mian-fei-jie-dian-de-fen-xiang/</url>
+      
+        <content type="html"><![CDATA[<p>很多同学可能有时候需要用google查找一些资料，但是对于大部分同学来说，这个功能并不是刚需的，可能只是偶尔百度or必应不管用的时候需要用到，直接买一个vpn又有些浪费，毕竟现在大部分vpn的价格都在20元/月左右<img class="alignnone size-full wp-image-193" src="http://111.231.218.156/wp-content/uploads/2019/02/46.png" alt="" width="33" height="32">，所以现在教大家一个利用免费机场提供的节点来实现<em>break great firewall</em>。</p><p><strong>首先去github上下载shadowsocks或者shadowsocksr客户端，这里贴出ss和ssr的下载地址：</strong></p><blockquote>shadowsocks for windows：<a href="https://github.com/shadowsocks/shadowsocks-windows/releases" target="_blank" rel="noopener">https://github.com/shadowsocks/shadowsocks-windows/releases</a><p>shadowsocksr for windows：<a href="https://github.com/shadowsocksr-backup/shadowsocksr-csharp/releases" target="_blank" rel="noopener">https://github.com/shadowsocksr-backup/shadowsocksr-csharp/releases</a></p></blockquote><br>技术上来说ss/ssr是一套基于socks5代理方式的网络加密传输数据包的技术，只要使用该工具配合vps节点就能实现科学上网。然而ss和ssr又有什么区别呢？这就涉及到了shadowsocks艰难的发展史<img class="alignnone size-full wp-image-198" src="http://111.231.218.156/wp-content/uploads/2019/02/32.png" alt="" width="33" height="30">。<p></p><blockquote>ss：ss作者是<a class="externalLink ProxyLink wmtLeFavicon" href="https://github.com/clowwindy" target="_blank" rel="nofollow noopener" data-proxy-href="proxy.php?link=https%3A%2F%2Fgithub.com%2Fclowwindy&amp;hash=39236941487011767d70e98d4fef0844" data-favicon-href="data/wmtLeFavicons/git/github.com.png">clowwindy</a>，大约两年前，他自己为了翻墙写了shadowsocks，简称ss或者叫影梭，后来他觉得这个东西非常好用，速度快，而且不会被封锁，他就把源码共享在了github上，然后就火了，但是后来作者被请去喝茶<img class="alignnone size-full wp-image-199" src="http://111.231.218.156/wp-content/uploads/2019/02/29.png" alt="" width="33" height="30">，删了代码，并且保证不再参与维护更新。现在这个好像是一个国外的大兄弟在维护。<p>ssr：在ss作者被喝茶之后，github上出现了一个叫breakwa11(破娃)的帐号，声称ss容易被防火墙检测到，所以在混淆和协议方面做了改进，更加不容易被检测到，而且兼容ss，改进后的项目叫shadowsocks-R，简称ssr，然后ss用户和ssr用户自然分成了两个派别，互相撕逼，直到前阵子，破娃被人肉出来，无奈之下删除了ssr的代码，并且解散了所有相关群组<img class="alignnone size-full wp-image-197" src="http://111.231.218.156/wp-content/uploads/2019/02/46-2.png" alt="" width="33" height="32">。</p></blockquote><br>ss和ssr的原理是一样的，都是采用socks5代理。socks代理只是简单的传递数据包，而不必关心是何种协议。比如我们配置的代理服务器在美国，那么当你访问google的时候，你的电脑发出请求，流量通过socks5连接发到你在美国的服务器上，然后再由你在美国的服务器去访问google，再把访问结果传回你的电脑，这样就实现了翻墙。<p></p><p>下载下来解压到文件夹中，无需安装，运行可执行文件（.exe），如果是shadowsocks的话就只需要填写服务器地址，服务器端口，密码和加密方式就行了<img class="alignnone size-full wp-image-195" src="http://111.231.218.156/wp-content/uploads/2019/02/22.png" alt="" width="33" height="30">。如果是shadowsocksr那还需要填写混淆方式或协议等参数，这些参数都在机场分享的节点信息里。</p><p><strong>接下来就要介绍下那些在大天朝的网络封锁如此严格的环境下仍然致力于分享免费节点的网站（首推古歌云）<img class="alignnone size-full wp-image-194" src="http://111.231.218.156/wp-content/uploads/2019/02/64.png" alt="" width="44" height="30">。</strong></p><ol>     <li>最开始接触的就是大名鼎鼎的逗比根据地了，但是前段时间听说我们大天朝建造的伟大的长城防火墙升级了，导致又有一大批网站被墙<img class="alignnone size-full wp-image-205" src="http://111.231.218.156/wp-content/uploads/2019/02/23.png" alt="" width="33" height="30">，逗比根据地原本的域名已不可用，不过还有一个由网友备份的镜像网站：<a href="https://doubibackup.com/" target="_blank" rel="noopener">https://doubibackup.com/</a><img class="alignnone wp-image-171" src="http://111.231.218.156/wp-content/uploads/2019/02/SRTUAP61I_4RZ4X0SBU-300x136.png" alt="" width="710" height="322"><img class="alignnone wp-image-174" src="http://111.231.218.156/wp-content/uploads/2019/02/7D6F7HQ_PJVQST9BVM-300x142.png" alt="" width="708" height="335"></li>     <li>还要介绍一个应该是由个人维护的github上一万star的项目<img class="alignnone size-full wp-image-206" src="http://111.231.218.156/wp-content/uploads/2019/02/189-1.png" alt="" width="32" height="32">，他分享的节点虽然少，但是个人感觉要比逗比根据地提供的节点要流畅一些，而且的确是在长期更新。链接：<a href="https://github.com/Alvin9999/new-pac/wiki/ss%E5%85%8D%E8%B4%B9%E8%B4%A6%E5%8F%B7" target="_blank" rel="noopener">https://github.com/Alvin9999/new-pac/wiki/ss%E5%85%8D%E8%B4%B9%E8%B4%A6%E5%8F%B7</a><img class="alignnone wp-image-175" src="http://111.231.218.156/wp-content/uploads/2019/02/QSG66_6TY_5@PMWYAP-300x248.png" alt="" width="502" height="415"></li>     <li>接下来是我目前发现的最良心的免费机场了（古歌云）：<a href="https://sctoa.cf" target="_blank" rel="noopener">https://sctoa.cf</a>邮箱注册登入之后，将会自动获得10GB的流量，可使用6天，每天还可以签到领取流量（每天可获得2-5GB不等）。6天过后账号会注销，若不想花钱，可以继续用同一个邮箱注册获得免费节点，若觉得麻烦可以看公告充值进行保号操作。我倒是觉得觉得10GB足够用了，速度也还行，算是非常良心的了<img class="alignnone size-full wp-image-207" src="http://111.231.218.156/wp-content/uploads/2019/02/64-1.png" alt="" width="44" height="30">。<img class="alignnone wp-image-176" src="http://111.231.218.156/wp-content/uploads/2019/02/H37FLF9FTN8NPCRO4RZW-300x155.png" alt="" width="548" height="283"></li>     <li>还有一个和上面的古歌云很像的网站，不过福利不如上面的古歌云，同样需要邮箱注册，支持签到获取流量。链接（泡芙云）：<a href="https://lostcloud.org" target="_blank" rel="noopener">https://lostcloud.org</a><img class="alignnone wp-image-177" src="http://111.231.218.156/wp-content/uploads/2019/02/JHZHI3EO81_KYK0Y_ZN-300x147.png" alt="" width="555" height="272"></li></ol>&nbsp;<p><strong>现在有了这么多的免费节点，接下来就可以将节点的信息填入shadowsocks或shadowsocksr来使用了</strong><img class="alignnone size-full wp-image-203" src="http://111.231.218.156/wp-content/uploads/2019/02/22-1.png" alt="" width="33" height="30"><strong>。</strong></p><p>下面以古歌云，ss为例，其他的节点配置和古歌云一致。ssr仅多出几项参数，照节点给出的参数正确填写即可。</p><img class="alignnone wp-image-178" src="http://111.231.218.156/wp-content/uploads/2019/02/F16@I0492@JCSR3OD_GJ-300x130.png" alt="" width="775" height="336"><p><img class="alignnone wp-image-180" src="http://111.231.218.156/wp-content/uploads/2019/02/D9CDVHUV3UPK8ZSGD-300x158.png" alt="" width="393" height="207"><img class="alignnone wp-image-179" src="http://111.231.218.156/wp-content/uploads/2019/02/OILLFJP47D320DKOM1Y2-300x139.png" alt="" width="608" height="281"></p><img class="alignnone wp-image-181" src="http://111.231.218.156/wp-content/uploads/2019/02/I@ITDS@HR6TB8H6@NDD-287x300.png" alt="" width="371" height="388"><p>右键托盘上的小飞机，将启动<strong>系统代理</strong>勾上，查看服务器是否选中配置好的节点。</p><img class="alignnone size-medium wp-image-182" src="http://111.231.218.156/wp-content/uploads/2019/02/MPFN17QXCQT6QG76CU-282x300.png" alt="" width="282" height="300"><p><strong>最后，可以将系统代理模式设置为PAC模式而不是全局模式。</strong></p><p>PAC模式简单说就是国内地址不走代理，国外走代理。全局模式就是不管国内国外，所有流量通过代理服务器访问。设置成PAC模式的好处就在于不像vpn一样只能全局模式，所有的流量都走了代理。一是增加了服务器的压力，浪费了流量，二是本来不用走代理的网站走了个国外的代理再回来，显然速度上就打了折扣。</p><p>配置好之后就可以开心的科学上网啦<img class="alignnone size-full wp-image-201" src="http://111.231.218.156/wp-content/uploads/2019/02/117.png" alt="" width="59" height="37">。</p><p><strong>这里再继续介绍一些google&amp;google学术的镜像国内镜像网站。如只需要使用google或google学术的小伙伴可以直接从此处获取。</strong></p><p>源地址：<a href="https://github.com/max2max/freess/blob/master/%E8%B0%B7%E6%AD%8C%26%E8%B0%B7%E6%AD%8C%E5%AD%A6%E6%9C%AF%E9%95%9C%E5%83%8F.md" target="_blank" rel="noopener">https://github.com/max2max/freess/blob/master/%E8%B0%B7%E6%AD%8C%26%E8%B0%B7%E6%AD%8C%E5%AD%A6%E6%9C%AF%E9%95%9C%E5%83%8F.md</a></p><p><strong>Google镜像：</strong></p><ul>     <li><a href="https://coderschool.2345.ga/" target="_blank" rel="nofollow noopener">https://coderschool.2345.ga</a></li>     <li><a href="https://plus.likeso.ml/" target="_blank" rel="nofollow noopener">https://plus.likeso.ml</a></li>     <li><a href="https://rain.likeso.ml/" target="_blank" rel="nofollow noopener">https://rain.likeso.ml</a></li>     <li><a href="https://xs5.rqiao.net/" target="_blank" rel="nofollow noopener">https://xs5.rqiao.net</a></li>     <li><a href="https://cc.08800.top/" target="_blank" rel="nofollow noopener">https://cc.08800.top</a></li>     <li><a href="https://cd.sousuodao.top/" target="_blank" rel="nofollow noopener">https://cd.sousuodao.top</a></li>     <li><a href="http://www.ose.cc/" target="_blank" rel="nofollow noopener">http://www.ose.cc</a></li>     <li><a href="http://wxpad.cn/" target="_blank" rel="nofollow noopener">http://wxpad.cn</a></li>     <li><a href="https://google.jiongjun.cc/" target="_blank" rel="nofollow noopener">https://google.jiongjun.cc</a></li>     <li><a href="http://ac.scmor.com/" target="_blank" rel="nofollow noopener">http://ac.scmor.com</a></li>     <li><a href="http://www.dirmor.top/" target="_blank" rel="nofollow noopener">http://www.dirmor.top</a></li>     <li><a href="https://www.zizaifan.com/html/google.html" target="_blank" rel="nofollow noopener">https://www.zizaifan.com/html/google.html</a></li></ul><strong>学术搜索：</strong><ul>     <li><a href="https://so.sciencesoft.cn/" target="_blank" rel="nofollow noopener">https://so.sciencesoft.cn</a></li>     <li><a href="https://xue.glgoo.net/" target="_blank" rel="nofollow noopener">https://xue.glgoo.net</a></li>     <li><a href="https://xues.glgoo.com/" target="_blank" rel="nofollow noopener">https://xues.glgoo.com</a></li>     <li><a href="https://xue.glgoo.net/" target="_blank" rel="nofollow noopener">https://xue.glgoo.net</a></li>     <li><a href="https://a.glgoo.top/" target="_blank" rel="nofollow noopener">https://a.glgoo.top</a></li></ul>另外还有一个需要浙大验证的google镜像：<a href="https://g3.luciaz.me/" target="_blank" rel="noopener">https://g3.luciaz.me/</a>，三个验证的答案分别是：心灵之约，水朝夕，csxy@123<img class="alignnone size-full wp-image-202" src="http://111.231.218.156/wp-content/uploads/2019/02/39.png" alt="" width="33" height="30"><script>        document.querySelectorAll('.github-emoji')          .forEach(el => {            if (!el.dataset.src) { return; }            const img = document.createElement('img');            img.style = 'display:none !important;';            img.src = el.dataset.src;            img.addEventListener('error', () => {              img.remove();              el.style.color = 'inherit';              el.style.backgroundImage = 'none';              el.style.background = 'none';            });            img.addEventListener('load', () => {              img.remove();            });            document.body.appendChild(img);          });      </script>]]></content>
+      
+      
+      <categories>
+          
+          <category> 科学爱国 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 科学爱国 </tag>
+            
+            <tag> ss </tag>
+            
+            <tag> ssr </tag>
             
         </tags>
       
@@ -131,168 +293,6 @@
         <tags>
             
             <tag> hexo </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Ubuntu服务器一键配置SS+开启BBR加速</title>
-      <link href="/ubuntu-fu-wu-qi-yi-jian-pei-zhi-ss-kai-qi-bbr-jia-su/"/>
-      <url>/ubuntu-fu-wu-qi-yi-jian-pei-zhi-ss-kai-qi-bbr-jia-su/</url>
-      
-        <content type="html"><![CDATA[<p>设置root密码：</p><pre class="lang:default decode:true ">sudo password root</pre><p>&nbsp;</p><p>下载shadowsocks客户端：<br><a href="https://github.com/shadowsocks/shadowsocks-windows/releases" target="_blank" rel="noopener">https://github.com/shadowsocks/shadowsocks-windows/releases</a></p><p>服务器安装：<br>（root下执行）</p><pre class="lang:default decode:true ">wget --no-check-certificate -O shadowsocks-all.sh https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocks-all.shchmod +x shadowsocks-all.sh./shadowsocks-all.sh 2&gt;&amp;1 | tee shadowsocks-all.log</pre><p>&nbsp;</p><p>启动停止重启命令：</p><pre class="lang:default decode:true">/etc/init.d/shadowsocks start | stop | restart | status</pre><p>&nbsp;</p><p>默认配置文件位置：</p><pre class="lang:default decode:true  ">/etc/shadowsocks/config.json</pre><p>&nbsp;</p><p>开启bbr加速：<br>（root下运行）</p><pre class="lang:default decode:true ">wget –no-check-certificate https://github.com/teddysun/across/raw/master/bbr.sh &amp;&amp; chmod +x bbr.sh &amp;&amp; ./bbr.sh</pre><p>&nbsp;</p><p>查看是否最新版本：</p><pre class="lang:default decode:true ">uname -rlsmod | grep bbr</pre><p>&nbsp;</p><script>        document.querySelectorAll('.github-emoji')          .forEach(el => {            if (!el.dataset.src) { return; }            const img = document.createElement('img');            img.style = 'display:none !important;';            img.src = el.dataset.src;            img.addEventListener('error', () => {              img.remove();              el.style.color = 'inherit';              el.style.backgroundImage = 'none';              el.style.background = 'none';            });            img.addEventListener('load', () => {              img.remove();            });            document.body.appendChild(img);          });      </script>]]></content>
-      
-      
-      <categories>
-          
-          <category> 科学爱国 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 科学爱国 </tag>
-            
-            <tag> SS </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>WordPress域名地址填写错误解决方法</title>
-      <link href="/wordpress-yu-ming-di-zhi-tian-xie-cuo-wu-jie-jue-fang-fa/"/>
-      <url>/wordpress-yu-ming-di-zhi-tian-xie-cuo-wu-jie-jue-fang-fa/</url>
-      
-        <content type="html"><![CDATA[<p>    因为想设置域名，没想到域名现在要备案了，一时间也不想这么麻烦的去备案，可是这时网站无法访问了，或者是加载不出css，导致没法进入设置的界面。因为我们所有在可视化页面上配置的东西，都最终转化成了后台对数据库的操作。so，我们要对网站的数据库进行入手。首先进入服务器数据库MySQL。<br>    选用WordPress所在的数据库，输入：</p><p><code>select * from wp_options where option_name like ‘%siteurl%’ or option_name like ‘%home%’</code></p><p>    这时就能看到你之前设置的错误的域名地址了，用修改的sql语句把地址改回原来的ip就行了。</p><script>        document.querySelectorAll('.github-emoji')          .forEach(el => {            if (!el.dataset.src) { return; }            const img = document.createElement('img');            img.style = 'display:none !important;';            img.src = el.dataset.src;            img.addEventListener('error', () => {              img.remove();              el.style.color = 'inherit';              el.style.backgroundImage = 'none';              el.style.background = 'none';            });            img.addEventListener('load', () => {              img.remove();            });            document.body.appendChild(img);          });      </script>]]></content>
-      
-      
-      <categories>
-          
-          <category> 博客搭建 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> bolg </tag>
-            
-            <tag> WordPress </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>SS/SSR客户端的配置及免费节点的分享</title>
-      <link href="/ss-ssr-ke-hu-duan-de-pei-zhi-ji-mian-fei-jie-dian-de-fen-xiang/"/>
-      <url>/ss-ssr-ke-hu-duan-de-pei-zhi-ji-mian-fei-jie-dian-de-fen-xiang/</url>
-      
-        <content type="html"><![CDATA[<p>很多同学可能有时候需要用google查找一些资料，但是对于大部分同学来说，这个功能并不是刚需的，可能只是偶尔百度or必应不管用的时候需要用到，直接买一个vpn又有些浪费，毕竟现在大部分vpn的价格都在20元/月左右<img class="alignnone size-full wp-image-193" src="http://111.231.218.156/wp-content/uploads/2019/02/46.png" alt="" width="33" height="32">，所以现在教大家一个利用免费机场提供的节点来实现<em>break great firewall</em>。</p><p><strong>首先去github上下载shadowsocks或者shadowsocksr客户端，这里贴出ss和ssr的下载地址：</strong></p><blockquote>shadowsocks for windows：<a href="https://github.com/shadowsocks/shadowsocks-windows/releases" target="_blank" rel="noopener">https://github.com/shadowsocks/shadowsocks-windows/releases</a><p>shadowsocksr for windows：<a href="https://github.com/shadowsocksr-backup/shadowsocksr-csharp/releases" target="_blank" rel="noopener">https://github.com/shadowsocksr-backup/shadowsocksr-csharp/releases</a></p></blockquote><br>技术上来说ss/ssr是一套基于socks5代理方式的网络加密传输数据包的技术，只要使用该工具配合vps节点就能实现科学上网。然而ss和ssr又有什么区别呢？这就涉及到了shadowsocks艰难的发展史<img class="alignnone size-full wp-image-198" src="http://111.231.218.156/wp-content/uploads/2019/02/32.png" alt="" width="33" height="30">。<p></p><blockquote>ss：ss作者是<a class="externalLink ProxyLink wmtLeFavicon" href="https://github.com/clowwindy" target="_blank" rel="nofollow noopener" data-proxy-href="proxy.php?link=https%3A%2F%2Fgithub.com%2Fclowwindy&amp;hash=39236941487011767d70e98d4fef0844" data-favicon-href="data/wmtLeFavicons/git/github.com.png">clowwindy</a>，大约两年前，他自己为了翻墙写了shadowsocks，简称ss或者叫影梭，后来他觉得这个东西非常好用，速度快，而且不会被封锁，他就把源码共享在了github上，然后就火了，但是后来作者被请去喝茶<img class="alignnone size-full wp-image-199" src="http://111.231.218.156/wp-content/uploads/2019/02/29.png" alt="" width="33" height="30">，删了代码，并且保证不再参与维护更新。现在这个好像是一个国外的大兄弟在维护。<p>ssr：在ss作者被喝茶之后，github上出现了一个叫breakwa11(破娃)的帐号，声称ss容易被防火墙检测到，所以在混淆和协议方面做了改进，更加不容易被检测到，而且兼容ss，改进后的项目叫shadowsocks-R，简称ssr，然后ss用户和ssr用户自然分成了两个派别，互相撕逼，直到前阵子，破娃被人肉出来，无奈之下删除了ssr的代码，并且解散了所有相关群组<img class="alignnone size-full wp-image-197" src="http://111.231.218.156/wp-content/uploads/2019/02/46-2.png" alt="" width="33" height="32">。</p></blockquote><br>ss和ssr的原理是一样的，都是采用socks5代理。socks代理只是简单的传递数据包，而不必关心是何种协议。比如我们配置的代理服务器在美国，那么当你访问google的时候，你的电脑发出请求，流量通过socks5连接发到你在美国的服务器上，然后再由你在美国的服务器去访问google，再把访问结果传回你的电脑，这样就实现了翻墙。<p></p><p>下载下来解压到文件夹中，无需安装，运行可执行文件（.exe），如果是shadowsocks的话就只需要填写服务器地址，服务器端口，密码和加密方式就行了<img class="alignnone size-full wp-image-195" src="http://111.231.218.156/wp-content/uploads/2019/02/22.png" alt="" width="33" height="30">。如果是shadowsocksr那还需要填写混淆方式或协议等参数，这些参数都在机场分享的节点信息里。</p><p><strong>接下来就要介绍下那些在大天朝的网络封锁如此严格的环境下仍然致力于分享免费节点的网站（首推古歌云）<img class="alignnone size-full wp-image-194" src="http://111.231.218.156/wp-content/uploads/2019/02/64.png" alt="" width="44" height="30">。</strong></p><ol>     <li>最开始接触的就是大名鼎鼎的逗比根据地了，但是前段时间听说我们大天朝建造的伟大的长城防火墙升级了，导致又有一大批网站被墙<img class="alignnone size-full wp-image-205" src="http://111.231.218.156/wp-content/uploads/2019/02/23.png" alt="" width="33" height="30">，逗比根据地原本的域名已不可用，不过还有一个由网友备份的镜像网站：<a href="https://doubibackup.com/" target="_blank" rel="noopener">https://doubibackup.com/</a><img class="alignnone wp-image-171" src="http://111.231.218.156/wp-content/uploads/2019/02/SRTUAP61I_4RZ4X0SBU-300x136.png" alt="" width="710" height="322"><img class="alignnone wp-image-174" src="http://111.231.218.156/wp-content/uploads/2019/02/7D6F7HQ_PJVQST9BVM-300x142.png" alt="" width="708" height="335"></li>     <li>还要介绍一个应该是由个人维护的github上一万star的项目<img class="alignnone size-full wp-image-206" src="http://111.231.218.156/wp-content/uploads/2019/02/189-1.png" alt="" width="32" height="32">，他分享的节点虽然少，但是个人感觉要比逗比根据地提供的节点要流畅一些，而且的确是在长期更新。链接：<a href="https://github.com/Alvin9999/new-pac/wiki/ss%E5%85%8D%E8%B4%B9%E8%B4%A6%E5%8F%B7" target="_blank" rel="noopener">https://github.com/Alvin9999/new-pac/wiki/ss%E5%85%8D%E8%B4%B9%E8%B4%A6%E5%8F%B7</a><img class="alignnone wp-image-175" src="http://111.231.218.156/wp-content/uploads/2019/02/QSG66_6TY_5@PMWYAP-300x248.png" alt="" width="502" height="415"></li>     <li>接下来是我目前发现的最良心的免费机场了（古歌云）：<a href="https://sctoa.cf" target="_blank" rel="noopener">https://sctoa.cf</a>邮箱注册登入之后，将会自动获得10GB的流量，可使用6天，每天还可以签到领取流量（每天可获得2-5GB不等）。6天过后账号会注销，若不想花钱，可以继续用同一个邮箱注册获得免费节点，若觉得麻烦可以看公告充值进行保号操作。我倒是觉得觉得10GB足够用了，速度也还行，算是非常良心的了<img class="alignnone size-full wp-image-207" src="http://111.231.218.156/wp-content/uploads/2019/02/64-1.png" alt="" width="44" height="30">。<img class="alignnone wp-image-176" src="http://111.231.218.156/wp-content/uploads/2019/02/H37FLF9FTN8NPCRO4RZW-300x155.png" alt="" width="548" height="283"></li>     <li>还有一个和上面的古歌云很像的网站，不过福利不如上面的古歌云，同样需要邮箱注册，支持签到获取流量。链接（泡芙云）：<a href="https://lostcloud.org" target="_blank" rel="noopener">https://lostcloud.org</a><img class="alignnone wp-image-177" src="http://111.231.218.156/wp-content/uploads/2019/02/JHZHI3EO81_KYK0Y_ZN-300x147.png" alt="" width="555" height="272"></li></ol>&nbsp;<p><strong>现在有了这么多的免费节点，接下来就可以将节点的信息填入shadowsocks或shadowsocksr来使用了</strong><img class="alignnone size-full wp-image-203" src="http://111.231.218.156/wp-content/uploads/2019/02/22-1.png" alt="" width="33" height="30"><strong>。</strong></p><p>下面以古歌云，ss为例，其他的节点配置和古歌云一致。ssr仅多出几项参数，照节点给出的参数正确填写即可。</p><img class="alignnone wp-image-178" src="http://111.231.218.156/wp-content/uploads/2019/02/F16@I0492@JCSR3OD_GJ-300x130.png" alt="" width="775" height="336"><p><img class="alignnone wp-image-180" src="http://111.231.218.156/wp-content/uploads/2019/02/D9CDVHUV3UPK8ZSGD-300x158.png" alt="" width="393" height="207"><img class="alignnone wp-image-179" src="http://111.231.218.156/wp-content/uploads/2019/02/OILLFJP47D320DKOM1Y2-300x139.png" alt="" width="608" height="281"></p><img class="alignnone wp-image-181" src="http://111.231.218.156/wp-content/uploads/2019/02/I@ITDS@HR6TB8H6@NDD-287x300.png" alt="" width="371" height="388"><p>右键托盘上的小飞机，将启动<strong>系统代理</strong>勾上，查看服务器是否选中配置好的节点。</p><img class="alignnone size-medium wp-image-182" src="http://111.231.218.156/wp-content/uploads/2019/02/MPFN17QXCQT6QG76CU-282x300.png" alt="" width="282" height="300"><p><strong>最后，可以将系统代理模式设置为PAC模式而不是全局模式。</strong></p><p>PAC模式简单说就是国内地址不走代理，国外走代理。全局模式就是不管国内国外，所有流量通过代理服务器访问。设置成PAC模式的好处就在于不像vpn一样只能全局模式，所有的流量都走了代理。一是增加了服务器的压力，浪费了流量，二是本来不用走代理的网站走了个国外的代理再回来，显然速度上就打了折扣。</p><p>配置好之后就可以开心的科学上网啦<img class="alignnone size-full wp-image-201" src="http://111.231.218.156/wp-content/uploads/2019/02/117.png" alt="" width="59" height="37">。</p><p><strong>这里再继续介绍一些google&amp;google学术的镜像国内镜像网站。如只需要使用google或google学术的小伙伴可以直接从此处获取。</strong></p><p>源地址：<a href="https://github.com/max2max/freess/blob/master/%E8%B0%B7%E6%AD%8C%26%E8%B0%B7%E6%AD%8C%E5%AD%A6%E6%9C%AF%E9%95%9C%E5%83%8F.md" target="_blank" rel="noopener">https://github.com/max2max/freess/blob/master/%E8%B0%B7%E6%AD%8C%26%E8%B0%B7%E6%AD%8C%E5%AD%A6%E6%9C%AF%E9%95%9C%E5%83%8F.md</a></p><p><strong>Google镜像：</strong></p><ul>     <li><a href="https://coderschool.2345.ga/" target="_blank" rel="nofollow noopener">https://coderschool.2345.ga</a></li>     <li><a href="https://plus.likeso.ml/" target="_blank" rel="nofollow noopener">https://plus.likeso.ml</a></li>     <li><a href="https://rain.likeso.ml/" target="_blank" rel="nofollow noopener">https://rain.likeso.ml</a></li>     <li><a href="https://xs5.rqiao.net/" target="_blank" rel="nofollow noopener">https://xs5.rqiao.net</a></li>     <li><a href="https://cc.08800.top/" target="_blank" rel="nofollow noopener">https://cc.08800.top</a></li>     <li><a href="https://cd.sousuodao.top/" target="_blank" rel="nofollow noopener">https://cd.sousuodao.top</a></li>     <li><a href="http://www.ose.cc/" target="_blank" rel="nofollow noopener">http://www.ose.cc</a></li>     <li><a href="http://wxpad.cn/" target="_blank" rel="nofollow noopener">http://wxpad.cn</a></li>     <li><a href="https://google.jiongjun.cc/" target="_blank" rel="nofollow noopener">https://google.jiongjun.cc</a></li>     <li><a href="http://ac.scmor.com/" target="_blank" rel="nofollow noopener">http://ac.scmor.com</a></li>     <li><a href="http://www.dirmor.top/" target="_blank" rel="nofollow noopener">http://www.dirmor.top</a></li>     <li><a href="https://www.zizaifan.com/html/google.html" target="_blank" rel="nofollow noopener">https://www.zizaifan.com/html/google.html</a></li></ul><strong>学术搜索：</strong><ul>     <li><a href="https://so.sciencesoft.cn/" target="_blank" rel="nofollow noopener">https://so.sciencesoft.cn</a></li>     <li><a href="https://xue.glgoo.net/" target="_blank" rel="nofollow noopener">https://xue.glgoo.net</a></li>     <li><a href="https://xues.glgoo.com/" target="_blank" rel="nofollow noopener">https://xues.glgoo.com</a></li>     <li><a href="https://xue.glgoo.net/" target="_blank" rel="nofollow noopener">https://xue.glgoo.net</a></li>     <li><a href="https://a.glgoo.top/" target="_blank" rel="nofollow noopener">https://a.glgoo.top</a></li></ul>另外还有一个需要浙大验证的google镜像：<a href="https://g3.luciaz.me/" target="_blank" rel="noopener">https://g3.luciaz.me/</a>，三个验证的答案分别是：心灵之约，水朝夕，csxy@123<img class="alignnone size-full wp-image-202" src="http://111.231.218.156/wp-content/uploads/2019/02/39.png" alt="" width="33" height="30"><script>        document.querySelectorAll('.github-emoji')          .forEach(el => {            if (!el.dataset.src) { return; }            const img = document.createElement('img');            img.style = 'display:none !important;';            img.src = el.dataset.src;            img.addEventListener('error', () => {              img.remove();              el.style.color = 'inherit';              el.style.backgroundImage = 'none';              el.style.background = 'none';            });            img.addEventListener('load', () => {              img.remove();            });            document.body.appendChild(img);          });      </script>]]></content>
-      
-      
-      <categories>
-          
-          <category> 科学爱国 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 科学爱国 </tag>
-            
-            <tag> ss </tag>
-            
-            <tag> ssr </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>docker pull 下载镜像太慢解决办法</title>
-      <link href="/docker-pull-xia-zai-jing-xiang-tai-man-jie-jue-ban-fa/"/>
-      <url>/docker-pull-xia-zai-jing-xiang-tai-man-jie-jue-ban-fa/</url>
-      
-        <content type="html"><![CDATA[<p>网上很多解决办法<br>我这里推荐一个我感觉有用而且最简单的方法<br><a href="https://www.daocloud.io/mirror#accelerator-doc" target="_blank" rel="noopener">https://www.daocloud.io/mirror#accelerator-doc</a><br>按照daocloud里的不同系统的配置方法去配置，Windows，Mac，Linux都有，输入命令回车就行了。<br><img src="https://s2.ax1x.com/2020/02/10/150Pv6.png"></p><script>        document.querySelectorAll('.github-emoji')          .forEach(el => {            if (!el.dataset.src) { return; }            const img = document.createElement('img');            img.style = 'display:none !important;';            img.src = el.dataset.src;            img.addEventListener('error', () => {              img.remove();              el.style.color = 'inherit';              el.style.backgroundImage = 'none';              el.style.background = 'none';            });            img.addEventListener('load', () => {              img.remove();            });            document.body.appendChild(img);          });      </script>]]></content>
-      
-      
-      <categories>
-          
-          <category> docker </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> docker </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>一键配置脚本，附加Ubuntu客户端(修改自@秋水逸冰)</title>
-      <link href="/yi-jian-pei-zhi-jiao-ben-fu-jia-ubuntu-ke-hu-duan/"/>
-      <url>/yi-jian-pei-zhi-jiao-ben-fu-jia-ubuntu-ke-hu-duan/</url>
-      
-        <content type="html"><![CDATA[<h3>本脚本适用环境</h3>系统支持：CentOS 6+，Debian 7+，Ubuntu 12+内存要求：≥128M<h3>关于本脚本</h3>1、一键安装 Shadowsocks-Python， ShadowsocksR， Shadowsocks-Go， Shadowsocks-libev 版（四选一）服务端；2、各版本的启动脚本及配置文件名不再重合；3、每次运行可安装一种版本；4、支持以多次运行来安装多个版本，且各个版本可以共存（注意端口号需设成不同）；5、若已安装多个版本，则卸载时也需多次运行（每次卸载一种）；<h3>默认配置</h3>服务器端口：自己设定（如不设定，默认从 9000-19999 之间随机生成）密码：自己设定（如不设定，默认为 <a href="http://teddysun.com/" target="_blank" rel="nofollow noopener">teddysun.com</a>）加密方式：自己设定（如不设定，Python 和 libev 版默认为 aes-256-gcm，R 和 Go 版默认为 aes-256-cfb）协议（protocol）：自己设定（如不设定，默认为 origin）（仅限 ShadowsocksR 版）混淆（obfs）：自己设定（如不设定，默认为 plain）（仅限 ShadowsocksR 版）备注：脚本默认创建单用户配置文件，如需配置多用户，请手动修改相应的配置文件后重启即可。<a name="t3"></a><a id="_26" target="_blank"></a><h3>客户端下载</h3>常规版 Windows 客户端<p><a href="https://github.com/shadowsocks/shadowsocks-windows/releases" target="_blank" rel="noopener">https://github.com/shadowsocks/shadowsocks-windows/releases</a></p><p>ShadowsocksR 版 Windows 客户端<br><a href="https://github.com/shadowsocksrr/shadowsocksr-csharp/releases" target="_blank" rel="noopener">https://github.com/shadowsocksrr/shadowsocksr-csharp/releases</a></p><p>附加：</p><p>Ubuntu客户端：</p><p>找了好多方法配置Ubuntu客户端，感觉都挺麻烦的，最终找到一个超级方便的，直接给下载地址：<a href="https://github.com/erguotou520/electron-ssr/releases" target="_blank" rel="noopener">https://github.com/erguotou520/electron-ssr/releases</a></p><p>安装完之后要设置端口：找到网络&gt;网络代理&gt;设置手动&gt;Sock主机为127.0.0.1:1080</p><h3>使用方法</h3>使用root用户登录，依次运行以下命令：<pre class="lang:default decode:true ">wget --no-check-certificate -O shadowsocks-all.sh https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocks-all.shchmod +x shadowsocks-all.sh./shadowsocks-all.sh 2&gt;&amp;1 | tee shadowsocks-all.log</pre>安装完成后，脚本提示如下<pre class="lang:default decode:true ">Congratulations, your_shadowsocks_version install completed!Your Server IP        :your_server_ipYour Server Port      :your_server_portYour Password         :your_passwordYour Encryption Method:your_encryption_method<p>Your QR Code: (For Shadowsocks Windows, OSX, Android and iOS clients)<br> ss://your_encryption_method:your_password@your_server_ip:your_server_port<br>Your QR Code has been saved as a PNG file path:<br> your_path.png</p><p>Welcome to visit:<a href="https://teddysun.com/486.html" target="_blank" rel="noopener">https://teddysun.com/486.html</a><br>Enjoy it!</p></pre><p></p><h3>卸载方法</h3>若已安装多个版本，则卸载时也需多次运行（每次卸载一种）使用root用户登录，运行以下命令：<pre class="lang:default decode:true ">./shadowsocks-all.sh uninstall</pre><h3>启动脚本</h3>启动脚本后面的参数含义，从左至右依次为：启动，停止，重启，查看状态。<p>Shadowsocks-Python 版：<br>/etc/init.d/shadowsocks-python start | stop | restart | status</p><p>ShadowsocksR 版：<br>/etc/init.d/shadowsocks-r start | stop | restart | status</p><p>Shadowsocks-Go 版：<br>/etc/init.d/shadowsocks-go start | stop | restart | status</p><p>Shadowsocks-libev 版：<br>/etc/init.d/shadowsocks-libev start | stop | restart | status</p><h3>各版本默认配置文件</h3>Shadowsocks-Python 版：/etc/shadowsocks-python/config.json<p>ShadowsocksR 版：<br>/etc/shadowsocks-r/config.json</p><p>Shadowsocks-Go 版：<br>/etc/shadowsocks-go/config.json</p><p>Shadowsocks-libev 版：<br>/etc/shadowsocks-libev/config.json</p><p>&nbsp;</p><p>配置好服务器后 Shadowsocks 客户端示例：</p><img class="alignnone size-medium wp-image-125" src="http://111.231.218.156/wp-content/uploads/2018/12/33_I99@V9C63ATHM3ZX0-300x159.png" alt="" width="300" height="159"><p>附加：使用本地PAC即只有访问墙外的网站才通过代理访问，不需要代理的就直接访问了。这样可能导致的问题是有些需要代理的网站会被误认为是不需要代理的，导致无法访问，这时可以尝试关闭’使用本地PAC’，例如P站就需要这样操作。</p><hr><h3>更新</h3>2018 年 02 月 06 日：修改：ShadowsocksR 版为 <a href="https://github.com/shadowsocksrr/shadowsocksr" target="_blank" rel="noopener">ShadowsocksRR</a> 最新版；<p>&nbsp;</p><p>原文地址请访问秋水逸冰: <a href="https://teddysun.com" target="_blank" rel="noopener">https://teddysun.com</a></p><script>        document.querySelectorAll('.github-emoji')          .forEach(el => {            if (!el.dataset.src) { return; }            const img = document.createElement('img');            img.style = 'display:none !important;';            img.src = el.dataset.src;            img.addEventListener('error', () => {              img.remove();              el.style.color = 'inherit';              el.style.backgroundImage = 'none';              el.style.background = 'none';            });            img.addEventListener('load', () => {              img.remove();            });            document.body.appendChild(img);          });      </script>]]></content>
-      
-      
-      <categories>
-          
-          <category> 科学爱国 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 科学爱国 </tag>
-            
-            <tag> 配置VPS </tag>
-            
-            <tag> SSR </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>获取网易云音乐外链</title>
-      <link href="/huo-qu-wang-yi-yun-yin-le-wai-lian/"/>
-      <url>/huo-qu-wang-yi-yun-yin-le-wai-lian/</url>
-      
-        <content type="html"><![CDATA[<p>一个网易音乐外链地址长期有效，很简单的方法：</p><p>第一步打开网易云音乐，随便找到一首歌，播放，复制网址的ID，</p><p>例如：杨钰莹的心雨，网址是：</p><p><a href="http://music.163.com/#/song?id=317151" target="_blank" rel="noopener">http://music.163.com/#/song?id=317151</a></p><p>很明显，ID是317151</p><p>那么，这首歌的真实地址就是：</p><p><a href="http://music.163.com/song/media/outer/url?id=317151.mp3" target="_blank" rel="noopener">http://music.163.com/song/media/outer/url?id=317151.mp3</a></p><p>这个地址不会失效的；</p><p>这就得到一个下载公式：</p><p><a href="http://music.163.com/song/media/outer/url?id=ID数字.mp3" target="_blank" rel="noopener">http://music.163.com/song/media/outer/url?id=ID数字.mp3</a></p><p>把上面红色部分ID数字换成网易云播放页面的id即可。</p><script>        document.querySelectorAll('.github-emoji')          .forEach(el => {            if (!el.dataset.src) { return; }            const img = document.createElement('img');            img.style = 'display:none !important;';            img.src = el.dataset.src;            img.addEventListener('error', () => {              img.remove();              el.style.color = 'inherit';              el.style.backgroundImage = 'none';              el.style.background = 'none';            });            img.addEventListener('load', () => {              img.remove();            });            document.body.appendChild(img);          });      </script>]]></content>
-      
-      
-      <categories>
-          
-          <category> 博客搭建 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> bolg </tag>
             
         </tags>
       
