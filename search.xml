@@ -31,6 +31,31 @@
     
     
     <entry>
+      <title>aliyun阿里云Maven仓库地址---加速你的Maven构建</title>
+      <link href="/aliyun-a-li-yun-maven-cang-ku-di-zhi-jia-su-ni-de-maven-gou-jian/"/>
+      <url>/aliyun-a-li-yun-maven-cang-ku-di-zhi-jia-su-ni-de-maven-gou-jian/</url>
+      
+        <content type="html"><![CDATA[<h2 id="aliyun阿里云Maven仓库地址—加速你的Maven构建"><a href="#aliyun阿里云Maven仓库地址—加速你的Maven构建" class="headerlink" title="aliyun阿里云Maven仓库地址—加速你的Maven构建"></a>aliyun阿里云Maven仓库地址—加速你的Maven构建</h2><p>maven仓库用过的人都知道，在国内的速度有多慢，在eclipse构建Maven项目时常有卡在9%的情况发生，这时如果替换成阿里云镜像仓库，速度可以提升100倍！<br>这里有官方的配置文档链接：<a href="https://maven.aliyun.com/mvn/guide" target="_blank" rel="noopener">阿里云云效 Maven</a></p><p>在在maven目录下的<code>settings.xml</code>文件里配置mirrors的子节点，添加如下mirror</p><pre class=" language-xml"><code class="language-xml">    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>mirror</span><span class="token punctuation">></span></span>        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>id</span><span class="token punctuation">></span></span>nexus-aliyun<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>id</span><span class="token punctuation">></span></span>        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>mirrorOf</span><span class="token punctuation">></span></span>*<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>mirrorOf</span><span class="token punctuation">></span></span>        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>Nexus aliyun<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>url</span><span class="token punctuation">></span></span>http://maven.aliyun.com/nexus/content/groups/public<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>url</span><span class="token punctuation">></span></span>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>mirror</span><span class="token punctuation">></span></span> </code></pre><script>        document.querySelectorAll('.github-emoji')          .forEach(el => {            if (!el.dataset.src) { return; }            const img = document.createElement('img');            img.style = 'display:none !important;';            img.src = el.dataset.src;            img.addEventListener('error', () => {              img.remove();              el.style.color = 'inherit';              el.style.backgroundImage = 'none';              el.style.background = 'none';            });            img.addEventListener('load', () => {              img.remove();            });            document.body.appendChild(img);          });      </script>]]></content>
+      
+      
+      <categories>
+          
+          <category> java </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> java </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>右键添加git bush here</title>
       <link href="/you-jian-tian-jia-git-bush-here/"/>
       <url>/you-jian-tian-jia-git-bush-here/</url>
