@@ -31,6 +31,31 @@
     
     
     <entry>
+      <title>CSS常用属性</title>
+      <link href="/css-chang-yong-shu-xing/"/>
+      <url>/css-chang-yong-shu-xing/</url>
+      
+        <content type="html"><![CDATA[<h2 id="CSS常用属性"><a href="#CSS常用属性" class="headerlink" title="CSS常用属性"></a>CSS常用属性</h2><p>好久没有写过前端页面了，这周任务给了个小需求，需要把前端后端完整的写出来，无奈又得开始学习前端的CSS和JS了。下面把做任务过程中用到的一些常用样式的属性记录下来。</p><hr><p>1.当body下的div需要使用width=100%属性时，应先将body的样式设置为width=100%</p><pre class=" language-css"><code class="language-css"><span class="token selector">body,html</span><span class="token punctuation">{</span>        <span class="token comment" spellcheck="true">/* 应先将body的width设置为100%，不然body下的div设置为100%则无效 */</span>    <span class="token property">width</span><span class="token punctuation">:</span> <span class="token number">100%</span><span class="token punctuation">;</span>    <span class="token property">margin</span><span class="token punctuation">:</span> <span class="token number">0</span>px<span class="token punctuation">;</span>    <span class="token property">padding</span><span class="token punctuation">:</span> <span class="token number">0</span>px<span class="token punctuation">;</span><span class="token punctuation">}</span></code></pre><p>2.常用的布局属性</p><pre class=" language-css"><code class="language-css"><span class="token property">display</span><span class="token punctuation">:</span> flex<span class="token punctuation">;</span><span class="token property">align-items</span><span class="token punctuation">:</span> center<span class="token punctuation">;</span>        <span class="token comment" spellcheck="true">/* 元素垂直居中 */</span><span class="token property">justify-content</span><span class="token punctuation">:</span> space-between<span class="token punctuation">;</span>    <span class="token comment" spellcheck="true">/*在弹性盒对象的 &lt;div> 元素中的水平各项周围留有空白*/</span><span class="token property">border-bottom</span><span class="token punctuation">:</span> <span class="token number">1</span>px solid <span class="token hexcode">#e8e8e8</span><span class="token punctuation">;</span>        <span class="token comment" spellcheck="true">/* botton的边框样式 */</span><span class="token property">line-height</span><span class="token punctuation">:</span> <span class="token number">60</span>px<span class="token punctuation">;</span>        <span class="token comment" spellcheck="true">/*百分比设置行高*/</span><span class="token property">text-align</span><span class="token punctuation">:</span> right<span class="token punctuation">;</span>        <span class="token comment" spellcheck="true">/*同一行居右*/</span><span class="token property">white-space</span><span class="token punctuation">:</span> nowrap<span class="token punctuation">;</span>        <span class="token comment" spellcheck="true">/*规定段落中的文本不进行换行*/</span></code></pre><table><thead><tr><th>属性</th><th>样式</th></tr></thead><tbody><tr><td>space-between</td><td>元素位于各行之间留有空白的容器内</td></tr><tr><td>space-around</td><td>元素位于各行之前、之间、之后都留有空白的容器内</td></tr></tbody></table><p>3.inherit属性：继承父元素属性</p><pre class=" language-css"><code class="language-css"><span class="token selector">input,button</span><span class="token punctuation">{</span>        <span class="token comment" spellcheck="true">/* inherit:继承父元素 */</span>    <span class="token property">font-family</span><span class="token punctuation">:</span> inherit<span class="token punctuation">;</span>    <span class="token property">font-size</span><span class="token punctuation">:</span> inherit<span class="token punctuation">;</span>    <span class="token property">font-style</span><span class="token punctuation">:</span> inherit<span class="token punctuation">;</span>    <span class="token property">font-weight</span><span class="token punctuation">:</span> inherit<span class="token punctuation">;</span>    <span class="token property">outline</span><span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">;</span>        <span class="token comment" spellcheck="true">/* 设置元素周围的轮廓 */</span><span class="token punctuation">}</span></code></pre><p>4.outline属性：设置元素周围的轮廓</p><pre class=" language-css"><code class="language-css"><span class="token selector">p </span><span class="token punctuation">{</span>    <span class="token property">border</span><span class="token punctuation">:</span><span class="token number">1</span>px solid red<span class="token punctuation">;</span>    <span class="token property">outline</span><span class="token punctuation">:</span>green dotted thick<span class="token punctuation">;</span>        /*这个样式的效果就是在p标签的周围有红色边框并且在红色边框外有绿色、点状的边框包围<span class="token punctuation">}</span></code></pre><p>5.overflow属性：指定摸个元素如果溢出一个元素的框会发生什么</p><table><thead><tr><th>值</th><th>描述</th></tr></thead><tbody><tr><td>visible</td><td>默认值，内容不会被剪裁，但会呈现在元素框之外</td></tr><tr><td>hidden</td><td>内容会被剪裁，其余内容不可见</td></tr><tr><td>scroll</td><td>内容会被剪裁，但会显示滚动条以便查看其余内容</td></tr><tr><td>auto</td><td>如果内容被剪裁，则显示滚动条</td></tr><tr><td>inherit</td><td>规定从父元素继承overflow属性的值</td></tr></tbody></table><script>        document.querySelectorAll('.github-emoji')          .forEach(el => {            if (!el.dataset.src) { return; }            const img = document.createElement('img');            img.style = 'display:none !important;';            img.src = el.dataset.src;            img.addEventListener('error', () => {              img.remove();              el.style.color = 'inherit';              el.style.backgroundImage = 'none';              el.style.background = 'none';            });            img.addEventListener('load', () => {              img.remove();            });            document.body.appendChild(img);          });      </script>]]></content>
+      
+      
+      <categories>
+          
+          <category> 前端 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> css 前端 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>前后端交互：Controller接收前端数据的几种方式</title>
       <link href="/qian-hou-duan-jiao-hu-controller-jie-shou-qian-duan-shu-ju-de-ji-chong-fang-shi/"/>
       <url>/qian-hou-duan-jiao-hu-controller-jie-shou-qian-duan-shu-ju-de-ji-chong-fang-shi/</url>
