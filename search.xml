@@ -31,6 +31,19 @@
     
     
     <entry>
+      <title>测试图片</title>
+      <link href="/ce-shi-tu-pian/"/>
+      <url>/ce-shi-tu-pian/</url>
+      
+        <content type="html"><![CDATA[<p><img src="./CSS%E5%B8%B8%E7%94%A8%E5%B1%9E%E6%80%A7/test.jpg" alt="test" title="测试"></p><script>        document.querySelectorAll('.github-emoji')          .forEach(el => {            if (!el.dataset.src) { return; }            const img = document.createElement('img');            img.style = 'display:none !important;';            img.src = el.dataset.src;            img.addEventListener('error', () => {              img.remove();              el.style.color = 'inherit';              el.style.backgroundImage = 'none';              el.style.background = 'none';            });            img.addEventListener('load', () => {              img.remove();            });            document.body.appendChild(img);          });      </script>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>CSS常用属性</title>
       <link href="/css-chang-yong-shu-xing/"/>
       <url>/css-chang-yong-shu-xing/</url>
