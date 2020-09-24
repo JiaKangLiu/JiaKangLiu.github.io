@@ -4,10 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="CSS常用属性, Nanchang University NCU Daye CS Blog Computer Science">
-    <meta name="description" content="CSS常用属性好久没有写过前端页面了，这周任务给了个小需求，需要把前端后端完整的写出来，无奈又得开始学习前端的CSS和JS了。下面把做任务过程中用到的一些常用样式的属性记录下来。
-
-1.当body下的div需要使用width=100%属性时">
+    <meta name="keywords" content="租房小记, Nanchang University NCU Daye CS Blog Computer Science">
+    <meta name="description" content="昨天准备租丽晶国际  合同签完钱都付出去了  隔壁房间突然传来一阵嘈杂的声音  出去看到小小的房间里面竟然有两张上下铺的床  而且隔音效果贼差  因为玻璃门缝留有一条很长的缺口直接通往过道  尝试关了窗户和门窗  他们稍微大声说话和公用卫生">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -15,7 +13,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>CSS常用属性 | Daye&#39;s Blog</title>
+    <title>租房小记 | Daye&#39;s Blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -318,12 +316,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://s2.ax1x.com/2020/02/10/1525LR.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://s2.ax1x.com/2020/02/10/15RcnA.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">CSS常用属性</h1>
+                    <h1 class="description center-align post-title">租房小记</h1>
                 </div>
             </div>
         </div>
@@ -440,8 +438,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/css-%E5%89%8D%E7%AB%AF/">
-                                <span class="chip bg-color">css 前端</span>
+                            <a href="/tags/%E9%9A%8F%E7%AC%94/">
+                                <span class="chip bg-color">随笔</span>
                             </a>
                         
                     </div>
@@ -452,8 +450,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E5%89%8D%E7%AB%AF/" class="post-category">
-                                前端
+                            <a href="/categories/%E9%9A%8F%E7%AC%94/" class="post-category">
+                                随笔
                             </a>
                         
                     </div>
@@ -465,7 +463,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-09-02
+                    2020-09-24
                 </div>
                 
 
@@ -474,7 +472,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    685
+                    668
                 </div>
                 
 
@@ -497,106 +495,7 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="CSS常用属性"><a href="#CSS常用属性" class="headerlink" title="CSS常用属性"></a>CSS常用属性</h2><p>好久没有写过前端页面了，这周任务给了个小需求，需要把前端后端完整的写出来，无奈又得开始学习前端的CSS和JS了。下面把做任务过程中用到的一些常用样式的属性记录下来。</p>
-<hr>
-<p>1.当body下的div需要使用width=100%属性时，应先将body的样式设置为width=100%</p>
-<pre class=" language-css"><code class="language-css"><span class="token selector">body,html</span><span class="token punctuation">{</span>      <span class="token comment" spellcheck="true">/* 应先将body的width设置为100%，不然body下的div设置为100%则无效 */</span>
-    <span class="token property">width</span><span class="token punctuation">:</span> <span class="token number">100%</span><span class="token punctuation">;</span>
-    <span class="token property">margin</span><span class="token punctuation">:</span> <span class="token number">0</span>px<span class="token punctuation">;</span>
-    <span class="token property">padding</span><span class="token punctuation">:</span> <span class="token number">0</span>px<span class="token punctuation">;</span>
-<span class="token punctuation">}</span></code></pre>
-<p>2.常用的布局属性</p>
-<pre class=" language-css"><code class="language-css"><span class="token property">display</span><span class="token punctuation">:</span> flex<span class="token punctuation">;</span>
-<span class="token property">align-items</span><span class="token punctuation">:</span> center<span class="token punctuation">;</span>        <span class="token comment" spellcheck="true">/* 元素垂直居中 */</span>
-<span class="token property">justify-content</span><span class="token punctuation">:</span> space-between<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">/*在弹性盒对象的 &lt;div> 元素中的水平各项周围留有空白*/</span>
-<span class="token property">border-bottom</span><span class="token punctuation">:</span> <span class="token number">1</span>px solid <span class="token hexcode">#e8e8e8</span><span class="token punctuation">;</span>       <span class="token comment" spellcheck="true">/* botton的边框样式 */</span>
-<span class="token property">line-height</span><span class="token punctuation">:</span> <span class="token number">60</span>px<span class="token punctuation">;</span>      <span class="token comment" spellcheck="true">/*百分比设置行高，如果父层div是固定长宽，通过该属性设置位置*/</span>
-<span class="token property">text-align</span><span class="token punctuation">:</span> right<span class="token punctuation">;</span>      <span class="token comment" spellcheck="true">/*同一行居右*/</span>
-<span class="token property">white-space</span><span class="token punctuation">:</span> nowrap<span class="token punctuation">;</span>        <span class="token comment" spellcheck="true">/*规定段落中的文本不进行换行*/</span></code></pre>
-<table>
-<thead>
-<tr>
-<th>属性</th>
-<th>样式</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>space-between</td>
-<td>元素位于各行之间留有空白的容器内</td>
-</tr>
-<tr>
-<td>space-around</td>
-<td>元素位于各行之前、之间、之后都留有空白的容器内</td>
-</tr>
-</tbody></table>
-<p>3.inherit属性：继承父元素属性</p>
-<pre class=" language-css"><code class="language-css"><span class="token selector">input,button</span><span class="token punctuation">{</span>       <span class="token comment" spellcheck="true">/* inherit:继承父元素 */</span>
-    <span class="token property">font-family</span><span class="token punctuation">:</span> inherit<span class="token punctuation">;</span>
-    <span class="token property">font-size</span><span class="token punctuation">:</span> inherit<span class="token punctuation">;</span>
-    <span class="token property">font-style</span><span class="token punctuation">:</span> inherit<span class="token punctuation">;</span>
-    <span class="token property">font-weight</span><span class="token punctuation">:</span> inherit<span class="token punctuation">;</span>
-    <span class="token property">outline</span><span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">;</span>     <span class="token comment" spellcheck="true">/* 设置元素周围的轮廓 */</span>
-<span class="token punctuation">}</span></code></pre>
-<p>4.outline属性：设置元素周围的轮廓</p>
-<pre class=" language-css"><code class="language-css"><span class="token selector">p </span><span class="token punctuation">{</span>
-    <span class="token property">border</span><span class="token punctuation">:</span><span class="token number">1</span>px solid red<span class="token punctuation">;</span>
-    <span class="token property">outline</span><span class="token punctuation">:</span>green dotted thick<span class="token punctuation">;</span>     /*这个样式的效果就是在p标签的周围有红色边框并且在红色边框外有绿色、点状的边框包围
-<span class="token punctuation">}</span></code></pre>
-<p>5.overflow属性：指定摸个元素如果溢出一个元素的框会发生什么</p>
-<table>
-<thead>
-<tr>
-<th>值</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>visible</td>
-<td>默认值，内容不会被剪裁，但会呈现在元素框之外</td>
-</tr>
-<tr>
-<td>hidden</td>
-<td>内容会被剪裁，其余内容不可见</td>
-</tr>
-<tr>
-<td>scroll</td>
-<td>内容会被剪裁，但会显示滚动条以便查看其余内容</td>
-</tr>
-<tr>
-<td>auto</td>
-<td>如果内容被剪裁，则显示滚动条</td>
-</tr>
-<tr>
-<td>inherit</td>
-<td>规定从父元素继承overflow属性的值</td>
-</tr>
-</tbody></table>
-<p>6.position相对定位和绝对定位</p>
-<table>
-<thead>
-<tr>
-<th>值</th>
-<th>定位</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>static</td>
-<td>默认值</td>
-</tr>
-<tr>
-<td>relative</td>
-<td>相对定位，相对于原来的位置移动，不影响其他元素的布局</td>
-</tr>
-<tr>
-<td>absolute</td>
-<td>绝对定位，元素会脱离文档流，如果设置偏移量，会影响其他元素的位置，在父元素没有设置相对定位或绝对定位的情况下，元素相对于根元素(html)定位，在父元素设置了相对定位或绝对定位时，采取就近原则</td>
-</tr>
-<tr>
-<td>fixed</td>
-<td>绝对定位</td>
-</tr>
-</tbody></table>
-<script>
+                <pre><code>昨天准备租丽晶国际  合同签完钱都付出去了  隔壁房间突然传来一阵嘈杂的声音  出去看到小小的房间里面竟然有两张上下铺的床  而且隔音效果贼差  因为玻璃门缝留有一条很长的缺口直接通往过道  尝试关了窗户和门窗  他们稍微大声说话和公用卫生间都能听到  顿时心生悔意  这时订单一直刷不出来  我们一直以为是网不好  中介给我开wifi试了一下还是不管用  我的账号上显示未付款  他的账号上也没有流水   我有点着急了   就直接找客服问  客服像预料之中的一样慢   而且回复的含糊其辞会马上处理   同时中介也在问  说是app的系统问题   我们就一直等  等到将近9：20   觉得这样等下去也不是办法   只能等平台修复bug了   然后我一直反馈客服说要关闭订单   一开始他说可以  后来问他就开始含糊其辞了    我只能抱希望于这是个公司大平台   希望他不会搞我   到了家已经10点多了   我还在不停的刷新app  期望有客服的回话或者交易关闭的信息  直到将近12点  我震惊的发现我把订单刷新出来了  想象应该是程序员们把bug给修复了然后直接下班了   钱没有退回来  感觉是直接交给房东了   我的心顿时凉了一截   想想花了这么多钱租了个可能会住的挺难受的房子   感觉难受极了  很难想象隔壁是2个或是4个大汉挤一个小房间   干啥都得*4那我不得被吵死   不过也不是没有希望了   毕竟是在平台上签的合同  平台出问题而且客服给了一个相对肯定的回答   应该不至于不认账   于是抱着侥幸的心里睡了   第二天等到9点多   立马找了客服反馈   这次客服没有打马虎眼   在等待了几分钟信息的查询后  立马就收到退款了  钱到账的时候感觉这件事终于放下了  长舒一口气   接下来还得继续找房....难受  </code></pre><script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
             if (!el.dataset.src) { return; }
@@ -639,7 +538,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://jiakangliu.github.io/css-chang-yong-shu-xing/">http://jiakangliu.github.io/css-chang-yong-shu-xing/</a>
+                    <a href="http://jiakangliu.github.io/zu-fang-xiao-ji/">http://jiakangliu.github.io/zu-fang-xiao-ji/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -677,8 +576,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/css-%E5%89%8D%E7%AB%AF/">
-                                    <span class="chip bg-color">css 前端</span>
+                                <a href="/tags/%E9%9A%8F%E7%AC%94/">
+                                    <span class="chip bg-color">随笔</span>
                                 </a>
                             
                         </div>
@@ -849,7 +748,7 @@
         repo: 'JiaKangLiu.github.io',
         owner: 'JiaKangLiu',
         admin: "JiaKangLiu",
-        id: '2020-09-02T08-13-05',
+        id: '2020-09-24T17-09-08',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -1137,6 +1036,61 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
+                <a href="/spspringmvc-zhong-shi-yong-interceptor-lan-jie-qi/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="https://s2.ax1x.com/2020/02/10/15RcnA.jpg" class="responsive-img" alt="SpSpringMVC中使用Interceptor拦截器">
+                        
+                        <span class="card-title">SpSpringMVC中使用Interceptor拦截器</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            SpringMVC 中的Interceptor 拦截器也是相当重要和相当有用的，它的主要作用是拦截用户的请求并进行相应的处理。比如通过它来进行权限验证，或者是来判断用户是否登陆，或者是像12306 那样子判断当前时间是否是购票时间。
+
+  
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2180-07-25
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/java/" class="post-category">
+                                    java
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/java/">
+                        <span class="chip bg-color">java</span>
+                    </a>
+                    
+                    <a href="/tags/spring/">
+                        <span class="chip bg-color">spring</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
                 <a href="/calendar-date-dui-shi-jian-de-zhuan-huan-he-ying-yong/">
                     <div class="card-image">
                         
@@ -1153,9 +1107,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-09-21
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-09-21
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -1163,55 +1117,6 @@
                             
                         </span>
                     </div>
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/qian-hou-duan-jiao-hu-controller-jie-shou-qian-duan-shu-ju-de-ji-chong-fang-shi/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="https://s2.ax1x.com/2020/02/10/15Rg0I.jpg" class="responsive-img" alt="前后端交互：Controller接收前端数据的几种方式">
-                        
-                        <span class="card-title">前后端交互：Controller接收前端数据的几种方式</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            前端可以通过form表单将数据提交到后台，而后台则是通过Controller层与前端进行交互获取前端传递过来的数据。
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-08-31
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/java/" class="post-category">
-                                    java
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/smm/">
-                        <span class="chip bg-color">smm</span>
-                    </a>
-                    
                 </div>
                 
             </div>
