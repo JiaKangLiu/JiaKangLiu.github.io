@@ -31,11 +31,49 @@
     
     
     <entry>
+      <title>大额预约取现需求开发总结</title>
+      <link href="/da-e-yu-yue-qu-xian-xu-qiu-kai-fa-zong-jie/"/>
+      <url>/da-e-yu-yue-qu-xian-xu-qiu-kai-fa-zong-jie/</url>
+      
+        <content type="html"><![CDATA[<p>目前我们的任务是对“大额预约取现”需求的开发，这个需求可以实现让客户能通过丰收互联在浙江农信的任一网点进行大额预约取现。</p><p>这个需求主要包括的功能有：</p><p>对客户填写的预约取现信息进行提交，根据客户选择的时间范围筛选出客户的预约记录，并且客户可以对待取现状态的预约记录进行修改或撤销。</p><p>这个需求用到的技术主要有：html、css、js、后台包括(service层、dao层和相应的map)</p><p>页面展示和功能：</p><p>加载页面的时候需要从session获取登录者的信息并显示在页面上  </p><p><img src="file:///C:/Users/%E5%88%98%E5%AE%B6%E5%BA%B7/AppData/Local/Temp/msohtmlclip1/01/clip_image002.jpg" alt="img"></p><p>这是其中给客户选择的预约时间列表，对应的就是后台对日期信息的一系列的处理和判断</p><p><img src="file:///C:/Users/%E5%88%98%E5%AE%B6%E5%BA%B7/AppData/Local/Temp/msohtmlclip1/01/clip_image004.png" alt="img"></p><p>这是预约成功的跳转页面、相应的也有预约失败对应的页面</p><p><img src="file:///C:/Users/%E5%88%98%E5%AE%B6%E5%BA%B7/AppData/Local/Temp/msohtmlclip1/01/clip_image006.png" alt="img"></p><p>这是预约之后的预约记录页面、客户可以通过选择时间范围对预约记录进行筛选、并且可以对待取现记录进行修改和撤销、对应的就是后台对数据库的查询和修改的操作和一些业务逻辑上的操作。</p><p><img src="file:///C:/Users/%E5%88%98%E5%AE%B6%E5%BA%B7/AppData/Local/Temp/msohtmlclip1/01/clip_image008.png" alt="img"></p><p>虽然这个需求我们开发的时间较长，但是我们学到的东西还是很多的。因为这个需求是一个相对独立的、涉及前端和后台的、包含了开发中最基础的CRUD操作、并且最终可以成功运行起来的一个难度不高的需求。对于我们都可以自己独立完成该需求。</p><p>咱们小组每个人也都做了一次完整的需求，刚开始写的时候其中的一些写法和逻辑可能会参考已有代码，但是当我们逐渐熟悉了项目的代码规范和写法之后，也可以自己独立完成一些接口的编写了，也越来越熟练了。虽然我们已经开发过一遍这个需求了，但是我们也在尝试将需求分成几块，然后进行合作开发，因为将来的需求肯定是需要合作开发的，每个人做不同的事情才能使开发效率提高。</p><p>当然自己也有做的不足的地方，比如在选择预约地点的时候需要在客户端调用一个百度地图的api，自己对这方面还不太熟悉。然后在开发时间、沟通交流方面做得都还不够，希望接下来继续努力。</p><p>总的来说，这段时间的需求开发对我们的提升还是挺大的，对于写业务有了进一步的认识，也熟悉了在丰收互联上添加一个功能的方法，相信接下来的开发可以越来越顺利。</p><script>        document.querySelectorAll('.github-emoji')          .forEach(el => {            if (!el.dataset.src) { return; }            const img = document.createElement('img');            img.style = 'display:none !important;';            img.src = el.dataset.src;            img.addEventListener('error', () => {              img.remove();              el.style.color = 'inherit';              el.style.backgroundImage = 'none';              el.style.background = 'none';            });            img.addEventListener('load', () => {              img.remove();            });            document.body.appendChild(img);          });      </script>]]></content>
+      
+      
+      <categories>
+          
+          <category> 工作 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 工作 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>工作汇报分享</title>
+      <link href="/gong-zuo-hui-bao-fen-xiang/"/>
+      <url>/gong-zuo-hui-bao-fen-xiang/</url>
+      
+        <content type="html"><![CDATA[<p><strong>1，新员工介绍目前的工作任务和学习内容并着重详述重点工作任务。</strong></p><p><strong>2，工作任务和学习过程中意见和建议。</strong></p><p><strong>要求：实时求是分享，每人分享时长限制在10分钟以内，方式不限，采用ppt或word等方式均可</strong></p><script>        document.querySelectorAll('.github-emoji')          .forEach(el => {            if (!el.dataset.src) { return; }            const img = document.createElement('img');            img.style = 'display:none !important;';            img.src = el.dataset.src;            img.addEventListener('error', () => {              img.remove();              el.style.color = 'inherit';              el.style.backgroundImage = 'none';              el.style.background = 'none';            });            img.addEventListener('load', () => {              img.remove();            });            document.body.appendChild(img);          });      </script>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>租房小记</title>
       <link href="/zu-fang-xiao-ji/"/>
       <url>/zu-fang-xiao-ji/</url>
       
-        <content type="html"><![CDATA[<p> 昨天准备租丽晶国际  合同签完钱都付出去了  隔壁房间突然传来一阵嘈杂的声音  出去看到小小的房间里面竟然有两张上下铺的床  而且隔音效果贼差  因为玻璃门缝留有一条很长的缺口直接通往过道  尝试关了窗户和门窗  他们稍微大声说话和公用卫生间都能听到  顿时心生悔意  这时订单一直刷不出来  我们一直以为是网不好  中介给我开wifi试了一下还是不管用  我的账号上显示未付款  他的账号上也没有流水   我有点着急了   就直接找客服问  客服像预料之中的一样慢   而且回复的含糊其辞会马上处理   同时中介也在问  说是app的系统问题   我们就一直等  等到将近9：20   觉得这样等下去也不是办法   只能等平台修复bug了   然后我一直反馈客服说要关闭订单   一开始他说可以  后来问他就开始含糊其辞了    我只能抱希望于这是个公司大平台   希望他不会搞我   到了家已经10点多了   我还在不停的刷新app  期望有客服的回话或者交易关闭的信息  直到将近12点  我震惊的发现我把订单刷新出来了  想象应该是程序员们把bug给修复了然后直接下班了   钱没有退回来  感觉是直接交给房东了   我的心顿时凉了一截   想想花了这么多钱租了个可能会住的挺难受的房子   感觉难受极了  很难想象隔壁是2个或是4个大汉挤一个小房间   干啥都得*4那我不得被吵死   不过也不是没有希望了   毕竟是在平台上签的合同  平台出问题而且客服给了一个相对肯定的回答   应该不至于不认账   于是抱着侥幸的心里睡了   第二天等到9点多   立马找了客服反馈   这次客服没有打马虎眼   在等待了几分钟信息的查询后  立马就收到退款了  钱到账的时候感觉这件事终于放下了  长舒一口气   接下来还得继续找房….难受  </p><script>        document.querySelectorAll('.github-emoji')          .forEach(el => {            if (!el.dataset.src) { return; }            const img = document.createElement('img');            img.style = 'display:none !important;';            img.src = el.dataset.src;            img.addEventListener('error', () => {              img.remove();              el.style.color = 'inherit';              el.style.backgroundImage = 'none';              el.style.background = 'none';            });            img.addEventListener('load', () => {              img.remove();            });            document.body.appendChild(img);          });      </script>]]></content>
+        <content type="html"><![CDATA[<p> 昨天准备租丽晶国际  合同签完钱都付出去了  押一付三8000多  我正肉痛着的时候  隔壁房间突然传来一阵嘈杂的声音  出去看到小小的房间里面竟然有两张上下铺的床  而且隔音效果贼差  因为玻璃门缝留有一条很长的缺口直接通往过道  尝试关了窗户和门窗  他们稍微大声说话和公用卫生间都能听到  顿时心生悔意  这时订单一直刷不出来  我们一直以为是网不好  中介给我开wifi试了一下还是不管用  我的账号上显示未付款  他的账号上也没有流水   我有点着急了   就直接找客服问  客服像预料之中的一样慢   而且回复的含糊其辞会马上处理   同时中介也在问  说是app的系统问题   我们就一直等  等到将近9：20   觉得这样等下去也不是办法   只能等平台修复bug了   然后我一直反馈客服说要关闭订单   一开始他说可以  后来问他就开始含糊其辞了    我只能抱希望于这是个公司大平台   希望他不会搞我   到了家已经10点多了   我还在不停的刷新app  期望有客服的回话或者交易关闭的信息  直到将近12点  我震惊的发现我把订单刷新出来了  想象应该是程序员们把bug给修复了然后直接下班了   钱没有退回来  感觉是直接交给房东了   我的心顿时凉了一截   想想花了这么多钱租了个可能会住的挺难受的房子   感觉难受极了  很难想象隔壁是2个或是4个大汉挤一个小房间   干啥都得*4那我不得被吵死   不过也不是没有希望了   毕竟是在平台上签的合同  平台出问题而且客服给了一个相对肯定的回答   应该不至于不认账   于是抱着侥幸的心里睡了   第二天等到9点多   立马找了客服反馈   这次客服没有打马虎眼   在等待了几分钟信息的查询后  立马就收到退款了  钱到账的时候感觉这件事终于放下了  长舒一口气   接下来还得继续找房….难受  </p><script>        document.querySelectorAll('.github-emoji')          .forEach(el => {            if (!el.dataset.src) { return; }            const img = document.createElement('img');            img.style = 'display:none !important;';            img.src = el.dataset.src;            img.addEventListener('error', () => {              img.remove();              el.style.color = 'inherit';              el.style.backgroundImage = 'none';              el.style.background = 'none';            });            img.addEventListener('load', () => {              img.remove();            });            document.body.appendChild(img);          });      </script>]]></content>
       
       
       <categories>
