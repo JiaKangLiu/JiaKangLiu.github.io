@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://jiakangliu.github.io/mysql-de-chang-yong-xie-fa/</loc>
+    <lastmod>2020-10-13</lastmod>
+  </url>  <url>
+    <loc>http://jiakangliu.github.io/fan-zhuan-lian-biao/</loc>
+    <lastmod>2020-10-13</lastmod>
+  </url>  <url>
     <loc>http://jiakangliu.github.io/da-e-yu-yue-qu-xian-xu-qiu-kai-fa-zong-jie/</loc>
     <lastmod>2020-09-28</lastmod>
-  </url>  <url>
-    <loc>http://jiakangliu.github.io/gong-zuo-hui-bao-fen-xiang/</loc>
-    <lastmod>2020-09-25</lastmod>
   </url>  <url>
     <loc>http://jiakangliu.github.io/zu-fang-xiao-ji/</loc>
     <lastmod>2020-09-25</lastmod>

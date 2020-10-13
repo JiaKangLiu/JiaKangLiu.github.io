@@ -4,10 +4,11 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="写文章、发布文章, Nanchang University NCU Daye CS Blog Computer Science">
-    <meta name="description" content="写文章、发布文章首先在博客根目录下右键打开git bash，安装一个扩展npm i hexo-deployer-git。
-然后输入hexo new post “article title”，新建一篇文章。
-然后打开D:\study\prog">
+    <meta name="keywords" content="反转链表, Nanchang University NCU Daye CS Blog Computer Science">
+    <meta name="description" content="反转链表输入一个链表，反转链表后，输出新链表的表头
+public class Solution{
+    public ListNode ReverseList(ListNode head){
+        if(head == null">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -15,7 +16,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>写文章、发布文章 | Daye&#39;s Blog</title>
+    <title>反转链表 | Daye&#39;s Blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -318,12 +319,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://s2.ax1x.com/2020/02/10/15RSeI.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://s2.ax1x.com/2020/02/10/152yd0.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">写文章、发布文章</h1>
+                    <h1 class="description center-align post-title">反转链表</h1>
                 </div>
             </div>
         </div>
@@ -438,25 +439,12 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                    <div class="article-tag">
-                        
-                            <a href="/tags/hexo/">
-                                <span class="chip bg-color">hexo</span>
-                            </a>
-                        
-                    </div>
+                          <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                          </div>
                     
                 </div>
                 <div class="col s5 right-align">
-                    
-                    <div class="post-cate">
-                        <i class="fas fa-bookmark fa-fw icon-category"></i>
-                        
-                            <a href="/categories/hexo/" class="post-category">
-                                hexo
-                            </a>
-                        
-                    </div>
                     
                 </div>
             </div>
@@ -465,7 +453,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2018-07-10
+                    2020-10-13
                 </div>
                 
 
@@ -474,7 +462,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    229
+                    118
                 </div>
                 
 
@@ -497,10 +485,27 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="写文章、发布文章"><a href="#写文章、发布文章" class="headerlink" title="写文章、发布文章"></a>写文章、发布文章</h2><p>首先在博客根目录下右键打开git bash，安装一个扩展npm i hexo-deployer-git。</p>
-<p>然后输入hexo new post “article title”，新建一篇文章。</p>
-<p>然后打开D:\study\program\blog\source_posts的目录，可以发现下面多了一个文件夹和一个.md文件，一个用来存放你的图片等数据，另一个就是你的文章文件啦。</p>
-<p>编写完markdown文件后，根目录下输入hexo g生成静态网页，然后输入hexo s可以本地预览效果，最后输入hexo d上传到github上。这时打开你的github.io主页就能看到发布的文章啦。<br>知乎：<a href="https://zhuanlan.zhihu.com/p/35668237" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/35668237</a></p>
+                <h2 id="反转链表"><a href="#反转链表" class="headerlink" title="反转链表"></a>反转链表</h2><p>输入一个链表，反转链表后，输出新链表的表头</p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">{</span>
+    <span class="token keyword">public</span> ListNode <span class="token function">ReverseList</span><span class="token punctuation">(</span>ListNode head<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>head <span class="token operator">==</span> null<span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token keyword">return</span> null<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        ListNode newHead <span class="token operator">=</span> null<span class="token punctuation">;</span>
+        ListNode cur <span class="token operator">=</span> head<span class="token punctuation">;</span>
+        ListNode pre <span class="token operator">=</span> null<span class="token punctuation">;</span>
+        <span class="token keyword">while</span><span class="token punctuation">(</span>cur<span class="token operator">!=</span>null<span class="token punctuation">)</span><span class="token punctuation">{</span>
+            ListNode curNext <span class="token operator">=</span> cur<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span>curNext<span class="token operator">==</span>null<span class="token punctuation">)</span><span class="token punctuation">{</span>
+                newHead <span class="token operator">=</span> cur<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            cur<span class="token punctuation">.</span>next <span class="token operator">=</span> pre<span class="token punctuation">;</span>
+            pre <span class="token operator">=</span> cur<span class="token punctuation">;</span>
+            cur <span class="token operator">=</span> curNext<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> newHead<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -544,7 +549,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://jiakangliu.github.io/xie-wen-zhang-fa-bu-wen-zhang/">http://jiakangliu.github.io/xie-wen-zhang-fa-bu-wen-zhang/</a>
+                    <a href="http://jiakangliu.github.io/fan-zhuan-lian-biao/">http://jiakangliu.github.io/fan-zhuan-lian-biao/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -581,11 +586,7 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            
-                                <a href="/tags/hexo/">
-                                    <span class="chip bg-color">hexo</span>
-                                </a>
-                            
+                            <span class="chip bg-color">无标签</span>
                         </div>
                     
                 </div>
@@ -754,7 +755,7 @@
         repo: 'JiaKangLiu.github.io',
         owner: 'JiaKangLiu',
         admin: "JiaKangLiu",
-        id: '2018-07-10T07-04-53',
+        id: '2020-10-13T09-01-00',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -1042,67 +1043,37 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/java-bian-ma-gui-fan-he-git-de-shi-yong-gui-fan-can-zhao-a-li-de-java-dai-ma-gui-fan/">
+                <a href="/mysql-de-chang-yong-xie-fa/">
                     <div class="card-image">
                         
                         
-                        <img src="https://s2.ax1x.com/2020/02/10/152vyd.jpg" class="responsive-img" alt="java编码规范和git的使用规范[参照阿里的java代码规范]">
+                        <img src="https://s2.ax1x.com/2020/02/10/15RVyj.jpg" class="responsive-img" alt="MySQL的常用写法">
                         
-                        <span class="card-title">java编码规范和git的使用规范[参照阿里的java代码规范]</span>
+                        <span class="card-title">MySQL的常用写法</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            java代码格式规范
+                            MySQL的常用写法最近在梳理丰收头条的功能代码，包括移动前台和后管的代码。在理解代码的过程中，记录的最多的就是SQL语句的写法了，用到了很多之前没用到过的写法。
 
+MySQL中TEXT与BLOB类型的区别
+主要区别：
 
-参考阿里java代码规范
-
-
-Pull Request要求
-
-
-代码格式 提交前请按项目风格进行格式化。
-必须添加测试！ - 提交前必须确认代码可运行。
-记得更新文档 - 保证README.md以及其他相关文档及时
+BLOB保存二进制
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2018-07-10
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-10-13
                         </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/java/" class="post-category">
-                                    java
-                                </a>
-                            
-                            <a href="/categories/java/git/" class="post-category">
-                                    git
-                                </a>
-                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Daye
                             
                         </span>
                     </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/java/">
-                        <span class="chip bg-color">java</span>
-                    </a>
-                    
-                    <a href="/tags/%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83/">
-                        <span class="chip bg-color">编码规范</span>
-                    </a>
-                    
-                    <a href="/tags/git/">
-                        <span class="chip bg-color">git</span>
-                    </a>
-                    
                 </div>
                 
             </div>
@@ -1114,32 +1085,33 @@ Pull Request要求
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/quan-gong-neng-wen-zhang-mo-ban/">
+                <a href="/da-e-yu-yue-qu-xian-xu-qiu-kai-fa-zong-jie/">
                     <div class="card-image">
                         
                         
-                        <img src="https://s2.ax1x.com/2020/02/10/152Wz4.jpg" class="responsive-img" alt="本主题文章参数">
+                        <img src="https://s2.ax1x.com/2020/02/10/152XSe.jpg" class="responsive-img" alt="大额预约取现需求开发总结">
                         
-                        <span class="card-title">本主题文章参数</span>
+                        <span class="card-title">大额预约取现需求开发总结</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Front-matter 选项详解Front-matter 选项中的所有内容均为非必填的。但我仍然建议至少填写 title 和 date 的值。
-配置选项    默认值    描述title    Markdown 的文件标题    文章标
+                            目前我们的任务是对“大额预约取现”需求的开发，这个需求可以实现让客户能通过丰收互联在浙江农信的任一网点进行大额预约取现。
+这个需求主要包括的功能有：
+对客户填写的预约取现信息进行提交，根据客户选择的时间范围筛选出客户的预约记录，并且客户可以
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2018-07-07
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-09-28
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Markdown/" class="post-category">
-                                    Markdown
+                            <a href="/categories/%E5%B7%A5%E4%BD%9C/" class="post-category">
+                                    工作
                                 </a>
                             
                             
@@ -1149,8 +1121,8 @@ Pull Request要求
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Markdown/">
-                        <span class="chip bg-color">Markdown</span>
+                    <a href="/tags/%E5%B7%A5%E4%BD%9C/">
+                        <span class="chip bg-color">工作</span>
                     </a>
                     
                 </div>
