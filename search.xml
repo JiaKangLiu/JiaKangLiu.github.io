@@ -56,6 +56,31 @@
     
     
     <entry>
+      <title>反转链表</title>
+      <link href="/fan-zhuan-lian-biao/"/>
+      <url>/fan-zhuan-lian-biao/</url>
+      
+        <content type="html"><![CDATA[<h2 id="反转链表"><a href="#反转链表" class="headerlink" title="反转链表"></a>反转链表</h2><p>输入一个链表，反转链表后，输出新链表的表头</p><pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">{</span>    <span class="token keyword">public</span> ListNode <span class="token function">ReverseList</span><span class="token punctuation">(</span>ListNode head<span class="token punctuation">)</span><span class="token punctuation">{</span>        <span class="token keyword">if</span><span class="token punctuation">(</span>head <span class="token operator">==</span> null<span class="token punctuation">)</span><span class="token punctuation">{</span>            <span class="token keyword">return</span> null<span class="token punctuation">;</span>        <span class="token punctuation">}</span>        ListNode newHead <span class="token operator">=</span> null<span class="token punctuation">;</span>        ListNode cur <span class="token operator">=</span> head<span class="token punctuation">;</span>        ListNode pre <span class="token operator">=</span> null<span class="token punctuation">;</span>        <span class="token keyword">while</span><span class="token punctuation">(</span>cur<span class="token operator">!=</span>null<span class="token punctuation">)</span><span class="token punctuation">{</span>            ListNode curNext <span class="token operator">=</span> cur<span class="token punctuation">.</span>next<span class="token punctuation">;</span>            <span class="token keyword">if</span><span class="token punctuation">(</span>curNext<span class="token operator">==</span>null<span class="token punctuation">)</span><span class="token punctuation">{</span>                newHead <span class="token operator">=</span> cur<span class="token punctuation">;</span>            <span class="token punctuation">}</span>            cur<span class="token punctuation">.</span>next <span class="token operator">=</span> pre<span class="token punctuation">;</span>            pre <span class="token operator">=</span> cur<span class="token punctuation">;</span>            cur <span class="token operator">=</span> curNext<span class="token punctuation">;</span>        <span class="token punctuation">}</span>        <span class="token keyword">return</span> newHead<span class="token punctuation">;</span>    <span class="token punctuation">}</span><span class="token punctuation">}</span></code></pre><script>        document.querySelectorAll('.github-emoji')          .forEach(el => {            if (!el.dataset.src) { return; }            const img = document.createElement('img');            img.style = 'display:none !important;';            img.src = el.dataset.src;            img.addEventListener('error', () => {              img.remove();              el.style.color = 'inherit';              el.style.backgroundImage = 'none';              el.style.background = 'none';            });            img.addEventListener('load', () => {              img.remove();            });            document.body.appendChild(img);          });      </script>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 算法 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>2020.12.31---跨年夜</title>
       <link href="/2020.12.31-kua-nian-ye/"/>
       <url>/2020.12.31-kua-nian-ye/</url>
@@ -213,19 +238,6 @@
             <tag> 记录生活 </tag>
             
         </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>反转链表</title>
-      <link href="/fan-zhuan-lian-biao/"/>
-      <url>/fan-zhuan-lian-biao/</url>
-      
-        <content type="html"><![CDATA[<h2 id="反转链表"><a href="#反转链表" class="headerlink" title="反转链表"></a>反转链表</h2><p>date: 2020-12-31 08:47:46<br>password:203c10631bb0a4d89e1e6c51cd81de5fd196a0f33f6ad1dac71e55c630bdfda1<br>tags: 算法<br>categories: 算法<br>输入一个链表，反转链表后，输出新链表的表头</p><pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">{</span>    <span class="token keyword">public</span> ListNode <span class="token function">ReverseList</span><span class="token punctuation">(</span>ListNode head<span class="token punctuation">)</span><span class="token punctuation">{</span>        <span class="token keyword">if</span><span class="token punctuation">(</span>head <span class="token operator">==</span> null<span class="token punctuation">)</span><span class="token punctuation">{</span>            <span class="token keyword">return</span> null<span class="token punctuation">;</span>        <span class="token punctuation">}</span>        ListNode newHead <span class="token operator">=</span> null<span class="token punctuation">;</span>        ListNode cur <span class="token operator">=</span> head<span class="token punctuation">;</span>        ListNode pre <span class="token operator">=</span> null<span class="token punctuation">;</span>        <span class="token keyword">while</span><span class="token punctuation">(</span>cur<span class="token operator">!=</span>null<span class="token punctuation">)</span><span class="token punctuation">{</span>            ListNode curNext <span class="token operator">=</span> cur<span class="token punctuation">.</span>next<span class="token punctuation">;</span>            <span class="token keyword">if</span><span class="token punctuation">(</span>curNext<span class="token operator">==</span>null<span class="token punctuation">)</span><span class="token punctuation">{</span>                newHead <span class="token operator">=</span> cur<span class="token punctuation">;</span>            <span class="token punctuation">}</span>            cur<span class="token punctuation">.</span>next <span class="token operator">=</span> pre<span class="token punctuation">;</span>            pre <span class="token operator">=</span> cur<span class="token punctuation">;</span>            cur <span class="token operator">=</span> curNext<span class="token punctuation">;</span>        <span class="token punctuation">}</span>        <span class="token keyword">return</span> newHead<span class="token punctuation">;</span>    <span class="token punctuation">}</span><span class="token punctuation">}</span></code></pre><script>        document.querySelectorAll('.github-emoji')          .forEach(el => {            if (!el.dataset.src) { return; }            const img = document.createElement('img');            img.style = 'display:none !important;';            img.src = el.dataset.src;            img.addEventListener('error', () => {              img.remove();              el.style.color = 'inherit';              el.style.backgroundImage = 'none';              el.style.background = 'none';            });            img.addEventListener('load', () => {              img.remove();            });            document.body.appendChild(img);          });      </script>]]></content>
-      
-      
       
     </entry>
     
