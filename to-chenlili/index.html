@@ -4,13 +4,10 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="MySQL的常用写法, Nanchang University NCU Daye CS Blog Computer Science">
-    <meta name="description" content="MySQL的常用写法最近在梳理丰收头条的功能代码，包括移动前台和后管的代码。在理解代码的过程中，记录的最多的就是SQL语句的写法了，用到了很多之前没用到过的写法。
-
-MySQL中TEXT与BLOB类型的区别
-主要区别：
-
-BLOB保存二进制">
+    <meta name="keywords" content="TO-CHENLILI, Nanchang University NCU Daye CS Blog Computer Science">
+    <meta name="description" content="TO-CHENLILI也许你也已经感觉到了，最近我们之间的气氛越来越奇怪了。
+我不知道你是怎么想的，但是对于我来说，我好像走的每一步都是错的，所以我停下来，没有再往前走。
+我的表达能力好像一直是个问题。不仅朋友同学说过，我爸妈也不止一次提醒">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -18,7 +15,7 @@ BLOB保存二进制">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>MySQL的常用写法 | Daye&#39;s Blog</title>
+    <title>TO-CHENLILI | Daye&#39;s Blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -308,7 +305,7 @@ BLOB保存二进制">
 <script src="/libs/cryptojs/crypto-js.min.js"></script>
 <script>
     (function() {
-        let pwd = '';
+        let pwd = '1bea20e1df19b12013976de2b5e0e3d1fb4ba088b59fe53642c324298b21ffd9';
         if (pwd && pwd.length > 0) {
             if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
                 alert('密码错误，将返回主页！');
@@ -321,12 +318,12 @@ BLOB保存二进制">
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://s2.ax1x.com/2020/02/10/15RVyj.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://s2.ax1x.com/2020/02/10/15RN01.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">MySQL的常用写法</h1>
+                    <h1 class="description center-align post-title">TO-CHENLILI</h1>
                 </div>
             </div>
         </div>
@@ -441,25 +438,12 @@ BLOB保存二进制">
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                    <div class="article-tag">
-                        
-                            <a href="/tags/MySQL/">
-                                <span class="chip bg-color">MySQL</span>
-                            </a>
-                        
-                    </div>
+                          <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                          </div>
                     
                 </div>
                 <div class="col s5 right-align">
-                    
-                    <div class="post-cate">
-                        <i class="fas fa-bookmark fa-fw icon-category"></i>
-                        
-                            <a href="/categories/MySQL/" class="post-category">
-                                MySQL
-                            </a>
-                        
-                    </div>
                     
                 </div>
             </div>
@@ -468,7 +452,7 @@ BLOB保存二进制">
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-10-26
+                    2021-08-02
                 </div>
                 
 
@@ -477,14 +461,14 @@ BLOB保存二进制">
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    479
+                    651
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    2 分
                 </div>
                 
 				
@@ -500,63 +484,23 @@ BLOB保存二进制">
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="MySQL的常用写法"><a href="#MySQL的常用写法" class="headerlink" title="MySQL的常用写法"></a>MySQL的常用写法</h2><p><code>最近在梳理丰收头条的功能代码，包括移动前台和后管的代码。在理解代码的过程中，记录的最多的就是SQL语句的写法了，用到了很多之前没用到过的写法。</code></p>
-<ol>
-<li><p>MySQL中TEXT与BLOB类型的区别</p>
-<p>主要区别：</p>
-<ul>
-<li><p>BLOB保存二进制数据</p>
-</li>
-<li><p>TEXT保存字符数据</p>
-<p>目前几乎所有博客内容里的图片都不是以二进制存储在数据库的，而是把图片上传到服务器然后正文里使用<img>标签引用，这样的博客就可以使用TEXT类型。而BLOB就可以把图片换算成二进制保存到数据库中。</p>
-</li>
-</ul>
-</li>
-<li><p>SQL语法中IFNULL()的用法</p>
-<p>IFNULL() 函数用于判断第一个表达式是否为 NULL，如果为 NULL 则返回第二个参数的值，如果不为 NULL 则返回第一个参数的值。</p>
-<pre class=" language-sql"><code class="language-sql">IFNULL<span class="token punctuation">(</span>expression<span class="token punctuation">,</span><span class="token keyword">value</span><span class="token punctuation">)</span></code></pre>
-<p>如果第一个参数的表达式expression为NULL，则返回第二个参数的备用值。</p>
-</li>
-<li><p>分页查询</p>
-<p>当要显示的数据，一页显示不全，需要分页提交SQL请求</p>
-<p>语法：</p>
-<pre class=" language-sql"><code class="language-sql"><span class="token keyword">select</span> 查询列表
-<span class="token keyword">from</span> 表
-
-【<span class="token keyword">join</span> <span class="token keyword">type</span> <span class="token keyword">join</span> 表<span class="token number">2</span>
-<span class="token keyword">on</span> 连接条件
-<span class="token keyword">where</span> 筛选条件
-<span class="token keyword">group</span> <span class="token keyword">by</span> 分组字段
-<span class="token keyword">having</span> 分组后的筛选
-<span class="token keyword">order</span> <span class="token keyword">by</span> 排序的字段】
-
-<span class="token keyword">limit</span> 【<span class="token keyword">offset</span><span class="token punctuation">,</span>】size<span class="token punctuation">;</span></code></pre>
-<p>offset作为页数参数传入（1,2,3…），简化写法如下：</p>
-<pre class=" language-sql"><code class="language-sql"><span class="token keyword">select</span> 查询列表
-<span class="token keyword">from</span> 表
-<span class="token keyword">limit</span> <span class="token punctuation">(</span>page<span class="token number">-1</span><span class="token punctuation">)</span><span class="token operator">*</span>size<span class="token punctuation">,</span>size<span class="token punctuation">;</span>
-
-size<span class="token operator">=</span><span class="token number">10</span>
-page  
-<span class="token number">1</span>   <span class="token number">0</span>
-<span class="token number">2</span>   <span class="token number">10</span>
-<span class="token number">3</span>   <span class="token number">20</span></code></pre>
-<p>特点：</p>
-<ul>
-<li>limit语句放在查询语句的最后</li>
-<li>公式：要显示的页数page，每页的条目数size</li>
-</ul>
-</li>
-<li><p>自定义列</p>
-<pre class=" language-sql"><code class="language-sql"><span class="token operator">&lt;</span>sql id<span class="token operator">=</span><span class="token string">"columns"</span><span class="token operator">></span>
-
-    COLUMN1<span class="token punctuation">,</span>COLUMN2<span class="token punctuation">,</span>COLUMN3
-
-<span class="token operator">&lt;</span>sql<span class="token operator">></span>
-
-<span class="token keyword">SELECT</span>  <span class="token operator">&lt;</span>include refid<span class="token operator">=</span><span class="token string">"columns"</span><span class="token operator">/</span><span class="token operator">></span>  <span class="token keyword">from</span> t_details <span class="token keyword">WHERE</span> ID<span class="token operator">=</span><span class="token comment" spellcheck="true">#{ID}</span></code></pre>
-</li>
-</ol>
+                <h2 id="TO-CHENLILI"><a href="#TO-CHENLILI" class="headerlink" title="TO-CHENLILI"></a>TO-CHENLILI</h2><p>也许你也已经感觉到了，最近我们之间的气氛越来越奇怪了。</p>
+<p>我不知道你是怎么想的，但是对于我来说，我好像走的每一步都是错的，所以我停下来，没有再往前走。</p>
+<p>我的表达能力好像一直是个问题。不仅朋友同学说过，我爸妈也不止一次提醒过我。也许我已经说错了很多话，让很多人曲解了我的意思，让很多人对我失望了。</p>
+<p>但是，难道我要为此而放弃追求我内心的想法吗？我想，有几个字的含义是一定不会错的，那就是：我喜欢你。</p>
+<p>这不是情书应该也算不上告白，所以，这里也许可以省略一万字。</p>
+<p>我不是第一次喜欢一个人。但我是第一次鼓起勇气去让自己喜欢的人感受到：那个呆呆的男孩子喜欢你。</p>
+<p>也许正是因为第一次，也许正是因为我的幼稚和木讷。我把很多事情搞砸了。</p>
+<p>最终变成了现在这个样子，我知道如果我不主动和你说话，我们可能就真的形同陌路了。</p>
+<p>这段日子，我有时候真的不知道该如何与你相处，毕竟低头不见抬头见的。</p>
+<p>究其原因，我想你应该也能感觉到吧。你应该…有喜欢的人了吧。</p>
+<p>瞎猜是最痛苦的，所以我决定亲自问你，来得到答案。</p>
+<p>无论结果是什么，我想，我都能坦然接受，毕竟，我不再是从前那个胆小鬼了。</p>
+<p>我知道，我现在做的事情也许会把情况变得更糟糕，但我不后悔，因为我很开心我勇敢过。</p>
+<p>我从来都不是圣人，单向的奔赴真的很累，漂泊在外我只想让自己过的快乐。</p>
+<p>我知道做决定很难，也知道做改变很难，但是一直憋在心里我会一直不快乐，我不想再做从前的那个胆小鬼了。</p>
+<p>这段时间以来，这些事情我一直都埋在心底，把心思都放在工作上，这样我就没时间去想这么多了。</p>
+<p>这些话我很想当面对你说，虽然我有时候嘴很笨很笨，但是那样很勇敢。</p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -600,7 +544,7 @@ page
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://jiakangliu.github.io/mysql-de-chang-yong-xie-fa/">http://jiakangliu.github.io/mysql-de-chang-yong-xie-fa/</a>
+                    <a href="http://jiakangliu.github.io/to-chenlili/">http://jiakangliu.github.io/to-chenlili/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -637,11 +581,7 @@ page
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            
-                                <a href="/tags/MySQL/">
-                                    <span class="chip bg-color">MySQL</span>
-                                </a>
-                            
+                            <span class="chip bg-color">无标签</span>
                         </div>
                     
                 </div>
@@ -810,7 +750,7 @@ page
         repo: 'JiaKangLiu.github.io',
         owner: 'JiaKangLiu',
         admin: "JiaKangLiu",
-        id: '2020-10-26T08-47-46',
+        id: '2021-08-02T23-47-46',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -1098,31 +1038,33 @@ page
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/zhe-zhou-mo-shi-chi-chi-chi/">
+                <a href="/spspringmvc-zhong-shi-yong-interceptor-lan-jie-qi/">
                     <div class="card-image">
                         
                         
-                        <img src="https://s2.ax1x.com/2020/02/10/15RPFf.jpg" class="responsive-img" alt="这周末是吃吃吃">
+                        <img src="https://s2.ax1x.com/2020/02/10/15RcnA.jpg" class="responsive-img" alt="SpSpringMVC中使用Interceptor拦截器">
                         
-                        <span class="card-title">这周末是吃吃吃</span>
+                        <span class="card-title">SpSpringMVC中使用Interceptor拦截器</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            这周末是吃吃吃周五老姐回杭州，本来说打算去机场送送她，可是她的时间一提再提，加上我们的总结汇报也在周五下午，说好6点前能结束的给我拖到了7点多钟，老姐一开始说7点多的飞机也变成5点多的飞机，我们就这么完美的错过了。但是由于她有人请吃饭，所以
+                            SpringMVC 中的Interceptor 拦截器也是相当重要和相当有用的，它的主要作用是拦截用户的请求并进行相应的处理。比如通过它来进行权限验证，或者是来判断用户是否登陆，或者是像12306 那样子判断当前时间是否是购票时间。
+
+  
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-11-01
+                            <i class="far fa-clock fa-fw icon-date"></i>2180-07-25
                         </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E8%AE%B0%E5%BD%95%E7%94%9F%E6%B4%BB/" class="post-category">
-                                    记录生活
+                            <a href="/categories/java/" class="post-category">
+                                    java
                                 </a>
                             
                             
@@ -1132,8 +1074,12 @@ page
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E8%AE%B0%E5%BD%95%E7%94%9F%E6%B4%BB/">
-                        <span class="chip bg-color">记录生活</span>
+                    <a href="/tags/java/">
+                        <span class="chip bg-color">java</span>
+                    </a>
+                    
+                    <a href="/tags/spring/">
+                        <span class="chip bg-color">spring</span>
                     </a>
                     
                 </div>
@@ -1147,24 +1093,26 @@ page
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/zhe-zhou-mo-shi-1024-he-chong-yang-ai/">
+                <a href="/2021.01.02/">
                     <div class="card-image">
                         
                         
-                        <img src="https://s2.ax1x.com/2020/02/10/15Rg0I.jpg" class="responsive-img" alt="这周末是1024和重阳诶">
+                        <img src="https://s2.ax1x.com/2020/02/10/152vyd.jpg" class="responsive-img" alt="2021.01.02">
                         
-                        <span class="card-title">这周末是1024和重阳诶</span>
+                        <span class="card-title">2021.01.02</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            这周末是1024和重阳诶太懒了加上心情也不太好，总想吃点热量高的东西抵消一下负能量，于是周五晚上点了烧烤，一边看比赛一边吃，喜欢的战队赢了，而且还是大获全胜，前两局直接把对面碾压，第三局练阵容也是一波翻盘，比赛太过精彩和高热量的食物把我的忧
+                            2021.01.02十里琅珰祈福树为家人祈福索桥一棵孤独的树立马回头站1314 LOVE BUS打霜的茶树加了蔬菜和火腿的螺蛳粉手绘—请回答1988
+
+        document.querySelectorAll('.github-e
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-10-26
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-01-02
                             </span>
                         <span class="publish-author">
                             
